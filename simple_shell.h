@@ -14,5 +14,13 @@
 char **split(char *str, const char *delim);
 void check_interactive(int *lenPrompt);
 void invoke_shell(char *name);
+void valid_command(char **argv, char *name);
+int _strcmp(char *s1, char *s2);
+
+/*Structure for Validation*/
+typedef struct bicmds_t {
+	char *name;
+	/*pointer to a function*/
+} bicmds;
 
 #endif
