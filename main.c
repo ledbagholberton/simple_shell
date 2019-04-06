@@ -5,8 +5,9 @@
  *Return: 0
  */
 
-int main(void)
+int main(int argc, char *argv[])
 {
-	invoke_shell();
+	(void)argc;
+	invoke_shell(argv[0]);
 	return (0);
 }

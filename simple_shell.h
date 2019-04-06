@@ -13,6 +13,6 @@
 /*Prototypes*/
 char **split(char *str, const char *delim);
 void check_interactive(int *lenPrompt);
-void invoke_shell(void);
+void invoke_shell(char *name);
 
 #endif
