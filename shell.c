@@ -5,7 +5,7 @@
  *Return: 0
  */
 
-void invoke_shell(void)
+void invoke_shell(char *name)
 {
 	ssize_t numLines = 0;
 	size_t len = 0;
@@ -24,12 +24,12 @@ void invoke_shell(void)
 		/*create child for executing binary file*/
 		child_pid = fork();
 		if (child_pid == -1)
-			perror("Error");
+			perror(name);
 		if (child_pid == 0)
 		{
 			/*execute command*/
 			if (execve(*argv, argv, NULL) == -1)
-				perror("Error");
+				perror(name);
 			exit(EXIT_FAILURE);
 		}
 		else
