@@ -1,22 +1,24 @@
 #include "simple_shell.h"
 
 /**
- *main - Super simple shell
+ *invoke_shell - Super simple shell
  *Return: 0
  */
 
-int main(void)
+void invoke_shell(void)
 {
 	ssize_t numLines = 0;
 	size_t len = 0;
-	char *buffer = NULL, **argv;
+	int lenPrompt = 8;
+	char *buffer = NULL, **argv, *prompt = "shelly$ ";
 	pid_t child_pid;
 
+	/*checks for interactive mode*/
+	check_interactive(&lenPrompt);
 	/*while no input is digited in the terminal wait*/
-	printf("$ ");
+	write(STDOUT_FILENO, prompt, lenPrompt);
 	while ((numLines = getline(&buffer, &len, stdin)) != -1)
 	{
-		printf("$ ");
 		/*split string digited to execute commands*/
 		argv = split(buffer, " \n");
 		/*create child for executing binary file*/
@@ -28,13 +30,28 @@ int main(void)
 			/*execute command*/
 			if (execve(*argv, argv, NULL) == -1)
 				perror("Error");
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
 			/*wait for child to finish*/
 			wait(NULL);
 		}
+		write(STDOUT_FILENO, prompt, lenPrompt);
 	}
 	free(buffer);
-	return (0);
+}
+
+/**
+ *check_interactive - checks if the shell is interactive or not
+ *lenPrompt: pointer to the value to be printed in terminal as prompt
+ *Return: none
+ */
+
+void check_interactive(int *lenPrompt)
+{
+	if (isatty(STDIN_FILENO) == 0)
+	{
+		*lenPrompt = 0;
+	}
 }
