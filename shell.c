@@ -44,7 +44,7 @@ void invoke_shell(void)
 
 /**
  *check_interactive - checks if the shell is interactive or not
- *lenPrompt: pointer to the value to be printed in terminal as prompt
+ *@lenPrompt: pointer to the value to be printed in terminal as prompt
  *Return: none
  */
 
