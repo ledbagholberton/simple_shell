@@ -44,23 +44,78 @@ char **split(char *str, const char *delim)
 }
 
 /**
- *_strcmp - compares two strings.
+ *_strncmp - compares two strings (first n bytes).
  *@s1: string one
  *@s2: string two
+ *@n: bytes to compare
  *Return: int if zero s1 = s2, if neg s1 < s2 and if pos s2 < s1
  */
 
-int _strcmp(char *s1, char *s2)
+int _strncmp(char *s1, char *s2, int n)
 {
 	int i1 = 0;
 	int i2 = 0;
 	int c = 0;
 
-	while (c == 0 && (*(s1 + i1) || *(s2 + i2)))
+	if (n == 0)
 	{
-		c = *(s1 + i1) - *(s2 + i2);
-		i1++;
-		i2++;
+		while (c == 0 && (*(s1 + i1) || *(s2 + i2)))
+		{
+			c = *(s1 + i1) - *(s2 + i2);
+			i1++;
+			i2++;
+		}
+		return (c);
 	}
-	return (c);
+	else
+	{
+		while (c == 0 && (*(s1 + i1) || *(s2 + i2)) && i1 < n && i2 < n)
+		{
+			c = *(s1 + i1) - *(s2 + i2);
+			i1++;
+			i2++;
+		}
+		return (c);
+	}
+}
+
+/**
+ *str_concat - concatenates two strings.
+ *@s1: string number 1
+ *@s2: string number 2
+ *Return: point to a newly allocated space
+ */
+
+char *str_concat(char *s1, char *s2)
+{
+	int size = 0;
+	int tmp = 0;
+	char *strcat;
+	char *aux = "";
+
+	if (s1 == NULL)
+		s1 = aux;
+	if (s2 == NULL)
+		s2 = aux;
+
+	while (*(s1 + size))
+		size++;
+	tmp = size;
+	size = 0;
+	while (*(s2 + size))
+		size++;
+	size += tmp + 1;
+
+	strcat = malloc(size * sizeof(char));
+	if (strcat == NULL)
+	{
+		free(strcat);
+		return (NULL);
+	}
+
+	for (; size >= tmp; size--)
+		*(strcat + size) = *(s2 + size - tmp);
+	for (; size >= 0; size--)
+		*(strcat + size) = *(s1 + size);
+	return (strcat);
 }
