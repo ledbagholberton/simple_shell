@@ -1,10 +1,10 @@
 #include "simple_shell.h"
 
 /**
- *
- *
- *
- *
+ *valid_command - validates if the command is a built in or has a binary file
+ *@argv: array of strings input
+ *@name: name of the shell
+ *Return: none
  */
 
 void valid_command(char **argv, char *name)

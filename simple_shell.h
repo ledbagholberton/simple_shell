@@ -17,8 +17,14 @@ void invoke_shell(char *name);
 void valid_command(char **argv, char *name);
 int _strcmp(char *s1, char *s2);
 
+/**
+ *struct bicmds_t - structure of built in commands
+ *@name: name of the built in command
+ */
+
 /*Structure for Validation*/
-typedef struct bicmds_t {
+typedef struct bicmds_t
+{
 	char *name;
 	/*pointer to a function*/
 } bicmds;
