@@ -2,6 +2,25 @@
 #include <unistd.h>
 
 /**
+ * _strcopy - copy memory
+ * @str: the origin string
+ * @ptr: the recipe string
+ *
+ * Return: No return
+ */
+
+void _strcopy(char *str, char *ptr)
+{
+        unsigned int cont = 0;
+
+	while (str[cont] != 4 && str[cont] != '\n')
+	{
+		ptr[cont] = str[cont];
+		cont++;
+	}
+}
+
+/**
 * _realloc - reallocate memory
 * @ptr: the address of memory of old_size
 * @new_size: the new size
@@ -43,34 +62,26 @@ void *_realloc(void *ptr, unsigned int new_size)
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
-	ssize_t pos, size;
-	char key_buff[1], my_char;
+	ssize_t size;
+	char key_buff[1024];
+	int leido;
 
-	pos = 0;
 	size = *n;
 	(void)stream;
-	*lineptr = malloc (sizeof(char) * size);
-	my_char = ' ';
-	while (read(STDIN_FILENO, key_buff, sizeof(key_buff)) > 0)
+	leido = read(STDIN_FILENO, key_buff, 1024);
+	if (*lineptr == NULL)
 	{
-		my_char = key_buff[0];
-		if (my_char == '\n' || my_char == 0x4)
-		{
-			(*lineptr)[pos] = '\n';
-			return (pos);
-		}
-		else
-		{
-			(*lineptr)[pos] = my_char;
-			pos++;
-			if (pos > size)
-			{
-			size++;
-			*lineptr = (char *) _realloc(*lineptr, size);
-			if (*lineptr == NULL)
-				return (-1);
-			}
-		}
+		*lineptr = malloc(sizeof(char) * 1024);
+		if (*lineptr == NULL)
+			return (-1);
 	}
-return(-1);
+	if (leido > size)
+	{
+		*lineptr = (char *) _realloc(*lineptr, leido + 120);
+		if (*lineptr == NULL)
+			return (-1);
+	}
+	_strcopy(key_buff, *lineptr);
+	(*lineptr)[leido - 1] = '\0';
+	return(leido);
 }
