@@ -2,6 +2,7 @@
 
 /**
  *invoke_shell - Super simple shell
+ *@name: name of the executable
  *Return: 0
  */
 
@@ -27,10 +28,8 @@ void invoke_shell(char *name)
 			perror(name);
 		if (child_pid == 0)
 		{
-			/*execute command*/
-			if (execve(*argv, argv, NULL) == -1)
-				perror(name);
-			exit(EXIT_FAILURE);
+			/*validate and execute command*/
+			valid_command(argv, name);
 		}
 		else
 		{
