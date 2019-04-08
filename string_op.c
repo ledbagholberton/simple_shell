@@ -13,7 +13,7 @@ char **split(char *str, const char *delim)
 	unsigned int wNum = 0, i = 0;
 
 	/*Count the number of words to allocate memory*/
-	buffer = strtok(tmpCpy, delim);
+	buffer = _strtok(tmpCpy, delim);
 	wNum += 1;
 	while (buffer != NULL)
 	{
@@ -29,7 +29,7 @@ char **split(char *str, const char *delim)
 		return (NULL);
 
 	/*Save pointer in the bidimensional array*/
-	buffer = strtok(str, delim);
+	buffer = _strtok(str, delim);
 	if (buffer != NULL)
 		*(argv) = buffer;
 	else
@@ -37,7 +37,7 @@ char **split(char *str, const char *delim)
 
 	for (i = 1; i < wNum; i++)
 	{
-		*(argv + i) = strtok(NULL, delim);
+		*(argv + i) = _strtok(NULL, delim);
 	}
 	*(argv + i) = NULL;
 	return (argv);
