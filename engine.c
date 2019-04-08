@@ -24,14 +24,44 @@ void valid_command(char **argv, char *name)
 
 	while (builtinCmds[iter].name != NULL)
 	{
-		if (_strcmp(builtinCmds[iter].name, argv[0]) == 0)
+		if (_strncmp(builtinCmds[iter].name, argv[0], 0) == 0)
 		{
 			printf("LLAMAR FUNCION [%s]\n", argv[0]);
 			exit(EXIT_FAILURE);
 		}
 		iter++;
 	}
-	if (execve(*argv, argv, NULL) == -1)
+	if (execve(_which(*argv), argv, NULL) == -1)
 		perror(name);
 	exit(EXIT_FAILURE);
+}
+
+/**
+ *_which - find the path for a command
+ *@cmd: command to find
+ *Return: the ful path concatenated with the command
+ */
+
+char *_which(char *cmd)
+{
+
+	struct stat st;
+	unsigned int i = 0;
+	char *path, *cat, *Bcmd;
+
+	while (_strncmp(environ[i], "PATH", 4) != 0)
+		i++;
+	path = strtok(environ[i], "=");
+	Bcmd = str_concat("/", cmd);
+	while (path != NULL)
+	{
+		path = strtok(NULL, ":");
+		cat = str_concat(path, Bcmd);
+		if (stat(cat, &st) == 0)
+			break;
+		free(cat);
+	}
+	free(Bcmd);
+	/*HARCODEAR EL ERROR*/
+	return (cat);
 }
