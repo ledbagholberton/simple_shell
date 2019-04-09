@@ -13,7 +13,7 @@ void _strcopy(char *str, char *ptr)
 {
         unsigned int cont = 0;
 
-	while (str[cont] != 4 && str[cont] != '\n')
+	while (str[cont] != 4 && str[cont] != '\n' && str[cont] != '\0')
 	{
 		ptr[cont] = str[cont];
 		cont++;
@@ -69,6 +69,8 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	size = *n;
 	(void)stream;
 	leido = read(STDIN_FILENO, key_buff, 1024);
+	if (leido == 0)
+		return (-1);
 	if (*lineptr == NULL)
 	{
 		*lineptr = malloc(sizeof(char) * 1024);
