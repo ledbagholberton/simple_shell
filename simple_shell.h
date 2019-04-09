@@ -13,6 +13,8 @@
 
 /*Prototypes*/
 char **split(char *str, const char *delim);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+
 void check_interactive(int *lenPrompt);
 void invoke_shell(char *name);
 void valid_command(char **argv, char *name);
@@ -32,6 +34,13 @@ typedef struct bicmds_t
 	/*pointer to a function*/
 } bicmds;
 
+int is_in_delim(char a, const char *delim);
+char *look_first_delim(char *str, const char *delim);
+char *look_last_delim(char *str, const char *delim);
+char *rel_string(char *str, char *ptr);
+char *_strtok(char *str, const char *delim);
+
 /*Global Variable*/
 extern char **environ;
+
 #endif
