@@ -1,33 +1,160 @@
 ls
-l
-ls
-cat "main.c"
-ls
-cat -e "main.c"
-ls
+ls -1
 cat main.c
+
 ls
+ls -1
 cat main.c
-/bin/ls
-/bin/ls
-;s
+
 ls
+ls -1
 cat main.c
+
 ls
+ls -1
 cat main.c
+
 ls
-ls
+ls -1
 cat main.c
-cat
-cat -e main.c
+
 ls
+ls -1
 cat main.c
-/bin/ls
-/bin/ls
-/bin/ls
-/bin/ls
-cat
-cat
-cat
+
 ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls
+ls -1
+cat main.c
+
+ls -all
+ls
+ls -1
+cat main.c
+
+ls -all
+ls
+ls -1
+cat main.c
+
+ls -all
+ls
+ls -1
+cat main.c
+
+ls -all
+ls
+ls -1
+
+
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1ls -all
+ls
+ls -1ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls
+make
+quit
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls -all
+ls
+ls -1
+ls
+ls -all
+cat main.c
 ls

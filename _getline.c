@@ -10,23 +10,26 @@
 int delete_delim(char *delim_2)
 {
 	int fd_log, leido, escrito, cont;
-	char tmp_buffer[1024];
+	char tmp_buffer[1024], *first_delim;
 	long int diferencia;
 
 	for (cont = 0; cont == 1023; cont++)
 		tmp_buffer[cont] = 4;
-	fd_log = open ("cmd_log.txt", O_RDWR);
+	fd_log = open ("cmd_log.txt", O_RDONLY);
 	leido = read(fd_log, tmp_buffer, 1024);
 	close(fd_log);
 	if (leido == -1 || leido == 0)
 		return (-1);
-	diferencia = look_first_delim(tmp_buffer, delim_2) - tmp_buffer + 1;
+	first_delim = look_first_delim(tmp_buffer, delim_2) + 1;
+	diferencia = first_delim - tmp_buffer;
 	fd_log = open("cmd_log.txt", O_WRONLY | O_TRUNC);
-	escrito = write (fd_log, look_first_delim(tmp_buffer, delim_2) + 1, (long int)1024 - diferencia);
-	if (escrito ==  -1)
+	if (fd_log == -1)
+		return (-1);
+	escrito = write (fd_log, first_delim, (long int)leido - diferencia);
+	if (escrito == -1)
 		return (-1);
 	close(fd_log);
-	return(escrito);			
+	return(escrito);
 }
 
 
@@ -95,25 +98,32 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	ssize_t size;
 	char key_buff[1024];
 	char *delim_2 = ";\n";
-	int leido, escrito, del_delim = 0, fd_log, fd_hist, historico = 0;
+	int leido, escrito, del_delim = 0, cont, fd_log, fd_hist, historico = 0;
 
 	size = *n;
 	(void)stream;
 
+	for(cont = 0; cont == 1023; cont++)
+		key_buff[cont] = '\0';
+
 	leido = read(STDIN_FILENO, key_buff, 1024);
-	fd_log = open("cmd_log.txt", O_RDWR | O_TRUNC | O_CREAT, 0660);
-	fd_hist = open("cmd_hist.txt", O_RDWR | O_APPEND | O_CREAT, 0660);
-	escrito = write(fd_log, key_buff, leido);
-	if (escrito  == -1)
-		return (-1);
-	historico = write(fd_hist, key_buff, leido) + historico;
-	if (historico == -1)
-		return (-1);
-	close (fd_hist);
-	close (fd_log);
+	if (leido != 0)
+	{
+		fd_log = open("cmd_log.txt", O_RDWR | O_TRUNC | O_CREAT, 0660);
+		fd_hist = open("cmd_hist.txt", O_RDWR | O_APPEND | O_CREAT, 0660);
+		escrito = write(fd_log, key_buff, leido);
+		if (escrito  == -1)
+			return (-1);
+		historico = write(fd_hist, key_buff, leido) + historico;
+		if (historico == -1)
+			return (-1);
+		close (fd_hist);
+		close (fd_log);
+	}
 
 	fd_log = open("cmd_log.txt", O_RDONLY);
 	leido = read(fd_log, key_buff, 1024);
+	close(fd_log);
 	if (leido == -1)
 		return (-1);
 
@@ -134,7 +144,5 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	del_delim = delete_delim(delim_2);
 	if (del_delim == -1)
 		return (-1);
-
-
 	return(leido);
 }
