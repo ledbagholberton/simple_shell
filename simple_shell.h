@@ -10,6 +10,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include <fcntl.h>
 
 /*Prototypes*/
 char **split(char *str, const char *delim);

@@ -31,9 +31,11 @@ int is_in_delim(char a, const char *delim)
 char *look_first_delim(char *str, const char *delim)
 {
 	char a, *ptr;
-	int cont = 0, flag_is = 1;
+	int cont = 0, flag_is = 0;
 
-	while (flag_is == 1)
+//	if (str == NULL)
+		
+	while (flag_is == 0)
 	{
 		a = str[cont];
 		flag_is = is_in_delim(a, delim);
@@ -75,7 +77,7 @@ char *look_last_delim(char *str, const char *delim)
 		ptr++;
 		cont--;
 	}
-	return(ptr--);
+	return(ptr);
 }
 
 /**
@@ -112,14 +114,32 @@ return(new);
  */
 char *_strtok(char *str, const char *delim)
 {
-	char *ptr;
+	char a, *aux2, *aux, *ptr;
+	int cont = 0, flag_is = 1;
 /* apunta al primer caracter encontrado diferente a delim */
-	str = look_first_delim(str, delim);
+	if (str != NULL)
+	{
+	while (flag_is == 1)
+		{
+		a = str[cont];
+		flag_is = is_in_delim(a, delim);
+		cont++;
+		}
+	aux = &(str[cont]);
 /* apunta al ultimo caracter antes de un delim*/
-	ptr = look_last_delim(str, delim);
+	flag_is = 0;
+	cont = 0;
+	while (flag_is == 0)
+	{
+		a = aux[cont];
+		flag_is = is_in_delim(a, delim);
+		cont++;
+	}
+	aux2 = &(aux[cont]);
 /* libera cadena y entrega apuntador a la cadena liberada
  * y a str apuntando a la cadena restante o al NULL 
 */
-	ptr = rel_string(str, ptr);
+	ptr = rel_string(aux, aux2);
+	}
 	return(ptr);
 }

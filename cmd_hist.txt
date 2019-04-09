@@ -1,0 +1,33 @@
+ls
+l
+ls
+cat "main.c"
+ls
+cat -e "main.c"
+ls
+cat main.c
+ls
+cat main.c
+/bin/ls
+/bin/ls
+;s
+ls
+cat main.c
+ls
+cat main.c
+ls
+ls
+cat main.c
+cat
+cat -e main.c
+ls
+cat main.c
+/bin/ls
+/bin/ls
+/bin/ls
+/bin/ls
+cat
+cat
+cat
+ls
+ls

@@ -18,7 +18,7 @@ void invoke_shell(char *name)
 	check_interactive(&lenPrompt);
 	/*while no input is digited in the terminal wait*/
 	write(STDOUT_FILENO, prompt, lenPrompt);
-	while ((numLines = _getline(&buffer, &len, stdin)) != -1)
+	while ((numLines = getline(&buffer, &len, stdin)) != -1)
 	{
 		/*split string digited to execute commands*/
 		argv = split(buffer, " \n");
