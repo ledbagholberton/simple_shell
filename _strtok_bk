@@ -147,7 +147,16 @@ char *rel_string(char *str, char *ptr, int len)
 char *_strtok(char *str, const char *delim)
 {
 	char *aux2, *aux1;
-	static char *ptr;
+	int fd_str, token, len;
+
+
+	for (len = 0; str[len]  != '\0'; len++)
+		;
+        fd_str = open("token.txt", O_RDWR | O_TRUNC | O_CREAT, 0660);
+        token = write(fd_str, str, len);
+        if (token == -1)
+                exit(-1);
+        close(fd_str);
 
 	if (str != NULL)
 	{
@@ -155,16 +164,16 @@ char *_strtok(char *str, const char *delim)
 		aux2 = look_last_delim(str, delim);
 		if (aux2 <= aux1)
 			return (NULL);
-	        aux2[0]  = '\0';
-		ptr = aux2;
+		aux1 = rel_string(aux1, aux2, len);
 		return(aux1);
 	}
-	aux1 = ptr;
-	aux2 = look_last_delim(ptr, delim);
+	fd_str = open("token.txt", O_RDWR | O_TRUNC | O_CREAT);
+	read(fd_str, str, len);
+	aux1 = look_first_delim(str, delim);
+	aux2 = look_last_delim(str, delim);
 	if (aux2 <= aux1)
 		return (NULL);
-	aux2[0] = '\0';
-	ptr = aux2;
+	aux1 = rel_string(aux1, aux2, len);
 	return(aux1);
 }
 

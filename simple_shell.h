@@ -38,7 +38,7 @@ typedef struct bicmds_t
 int is_in_delim(char a, const char *delim);
 char *look_first_delim(char *str, const char *delim);
 char *look_last_delim(char *str, const char *delim);
-char *rel_string(char *str, char *ptr);
+char *rel_string(char *str, char *ptr, int len);
 char *_strtok(char *str, const char *delim);
 
 /*Global Variable*/
