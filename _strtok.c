@@ -1,7 +1,7 @@
 #include "simple_shell.h"
 #include <string.h>
 /**
- *is_in_delim - replace strtok function
+ *is_in_delim - replace _strtok function
  *
  *@a: pointer to string
  *@delim: pointer to string delim
@@ -53,7 +53,7 @@ char *look_first_char(char *str, const char *delim)
 }
 
 /**
- *look_first_delim - replace strtok function
+ *look_first_delim - replace _strtok function
  *
  *@str: pointer to string
  *@delim: pointer to string delim
@@ -83,7 +83,7 @@ char *look_first_delim(char *str, const char *delim)
 
 
 /**
- *look_last_delim - look last char bfoor replace strtok function
+ *look_last_delim - look last char bfoor replace _strtok function
  *
  *@str: pointer to string with char different to dilem
  *@delim: pointer to string delim
@@ -114,7 +114,7 @@ char *look_last_delim(char *str, const char *delim)
 }
 
 /**
- *_strtok - replace strtok function
+ *_strtok - replace _strtok function
  *
  *@str: pointer to string
  *@delim: pointer to string delim
