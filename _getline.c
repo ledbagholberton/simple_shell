@@ -15,10 +15,10 @@ void init_file(char *key_buff, int leido)
 	fd_hist = open("cmd_hist.txt", O_RDWR | O_APPEND | O_CREAT, 0660);
 	escrito = write(fd_log, key_buff, leido);
 	if (escrito == -1)
-		return (-1);
+		exit(-1);
 	historico = write(fd_hist, key_buff, leido);
 	if (historico == -1)
-		return (-1);
+		exit(-1);
 	close(fd_hist);
 	close(fd_log);
 }
@@ -121,7 +121,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	ssize_t size;
 	char key_buff[1024];
 	char *delim_2 = ";\n";
-	int leido, escrito, del_delim = 0, cont, fd_log, fd_hist, historico = 0;
+	int leido, del_delim = 0, cont, fd_log;
 
 	size = *n;
 	(void) stream;
