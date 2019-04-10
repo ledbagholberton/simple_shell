@@ -69,16 +69,18 @@ char *_which(char *cmd)
 		path = strtok(path, ":");
 	while (path != NULL)
 	{
+		path = strtok(NULL, "");
 		if (*path == ':')
 		{
 			cat = Bcmd + 1;
 			if (stat(cat, &st) == 0)
-				break;
-			path = strtok(path, ":");
+				path = NULL;
+			else
+				path = strtok(path, ":");
 		}
-		if (*path == '/')
+		else
 		{
-			path = strtok(NULL, ":");
+			path = strtok(path, ":");
 			cat = str_concat(path, Bcmd);
 			if (stat(cat, &st) == 0)
 				break;
