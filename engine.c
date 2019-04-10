@@ -58,13 +58,7 @@ char *_which(char *cmd)
 		return (cmd);
 	path = strtok(NULL, "");
 	if (*path == ':')
-	{
-		cat = Bcmd + 1;
-		if (stat(cat, &st) == 0)
-			path = NULL;
-		else
-			path = strtok(path, ":");
-	}
+		check_cd(&path, &Bcmd, &cat);
 	else
 		path = strtok(path, ":");
 	while (path != NULL)
@@ -72,11 +66,7 @@ char *_which(char *cmd)
 		path = strtok(NULL, "");
 		if (*path == ':')
 		{
-			cat = Bcmd + 1;
-			if (stat(cat, &st) == 0)
-				path = NULL;
-			else
-				path = strtok(path, ":");
+			check_cd(&path, &Bcmd, &cat);
 		}
 		else
 		{
@@ -91,4 +81,24 @@ char *_which(char *cmd)
 		free(Bcmd);
 	/*HARCODEAR EL ERROR*/
 	return (cat);
+}
+
+/**
+ *check_cd - checks for current path
+ *@path: current path
+ *@Bcmd: slash command
+ *@cat: concatenation
+ *Return: none
+ */
+
+void check_cd(char **path, char **Bcmd, char **cat)
+{
+	struct stat st;
+
+	*cat = *Bcmd + 1;
+	if (stat(*cat, &st) == 0)
+		*path = NULL;
+	else
+		*path = strtok(*path, ":");
+
 }
