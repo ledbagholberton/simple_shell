@@ -1,10 +1,33 @@
 #include "simple_shell.h"
 
-/** count_delim - count until next delim
- * 
+/**
+ * init_file - initialize files log & hist
+ *
+ *@key_buff: pointer to buffer
+ *@leido: leido
+ *Return: No return
+ */
+void init_file(char *key_buff, int leido)
+{
+	int fd_log, fd_hist, escrito, historico;
+
+	fd_log = open("cmd_log.txt", O_RDWR | O_TRUNC | O_CREAT, 0660);
+	fd_hist = open("cmd_hist.txt", O_RDWR | O_APPEND | O_CREAT, 0660);
+	escrito = write(fd_log, key_buff, leido);
+	if (escrito == -1)
+		return (-1);
+	historico = write(fd_hist, key_buff, leido);
+	if (historico == -1)
+		return (-1);
+	close(fd_hist);
+	close(fd_log);
+}
+
+/**
+ * delete_delim - count until next delim
+ *
  *@delim_2: delim strings like \n, ;, &&, ||
  *Return: Integer with long
- *remind that fd_log is already open
  */
 
 int delete_delim(char *delim_2)
@@ -15,7 +38,7 @@ int delete_delim(char *delim_2)
 
 	for (cont = 0; cont == 1023; cont++)
 		tmp_buffer[cont] = 4;
-	fd_log = open ("cmd_log.txt", O_RDONLY);
+	fd_log = open("cmd_log.txt", O_RDONLY);
 	leido = read(fd_log, tmp_buffer, 1024);
 	close(fd_log);
 	if (leido == -1 || leido == 0)
@@ -25,11 +48,11 @@ int delete_delim(char *delim_2)
 	fd_log = open("cmd_log.txt", O_WRONLY | O_TRUNC);
 	if (fd_log == -1)
 		return (-1);
-	escrito = write (fd_log, first_delim, (long int)leido - diferencia);
+	escrito = write(fd_log, first_delim, (long int)leido - diferencia);
 	if (escrito == -1)
 		return (-1);
 	close(fd_log);
-	return(escrito);
+	return (escrito);
 }
 
 
@@ -43,14 +66,14 @@ int delete_delim(char *delim_2)
 
 int _strcopy(char *str, char *ptr)
 {
-        unsigned int cont = 0;
+	unsigned int cont = 0;
 
 	while (str[cont] != 4 && str[cont] != '\n' && str[cont] != '\0')
 	{
 		ptr[cont] = str[cont];
 		cont++;
 	}
-	return(cont);
+	return (cont);
 }
 
 /**
@@ -64,7 +87,7 @@ int _strcopy(char *str, char *ptr)
 void *_realloc(void *ptr, unsigned int new_size)
 {
 	char *a;
-	unsigned int cont = 0; 
+	unsigned int cont = 0;
 
 	if (ptr == NULL)
 		return (malloc(new_size));
@@ -101,32 +124,17 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	int leido, escrito, del_delim = 0, cont, fd_log, fd_hist, historico = 0;
 
 	size = *n;
-	(void)stream;
-
-	for(cont = 0; cont == 1023; cont++)
+	(void) stream;
+	for (cont = 0; cont == 1023; cont++)
 		key_buff[cont] = '\0';
-
 	leido = read(STDIN_FILENO, key_buff, 1024);
 	if (leido != 0)
-	{
-		fd_log = open("cmd_log.txt", O_RDWR | O_TRUNC | O_CREAT, 0660);
-		fd_hist = open("cmd_hist.txt", O_RDWR | O_APPEND | O_CREAT, 0660);
-		escrito = write(fd_log, key_buff, leido);
-		if (escrito  == -1)
-			return (-1);
-		historico = write(fd_hist, key_buff, leido) + historico;
-		if (historico == -1)
-			return (-1);
-		close (fd_hist);
-		close (fd_log);
-	}
-
+		init_file(key_buff, leido);
 	fd_log = open("cmd_log.txt", O_RDONLY);
 	leido = read(fd_log, key_buff, 1024);
-	close(fd_log);
 	if (leido == -1)
 		return (-1);
-
+	close(fd_log);
 	if (*lineptr == NULL)
 	{
 		*lineptr = malloc(sizeof(char) * 1024);
@@ -144,5 +152,5 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	del_delim = delete_delim(delim_2);
 	if (del_delim == -1)
 		return (-1);
-	return(leido);
+	return (leido);
 }
