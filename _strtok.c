@@ -46,7 +46,7 @@ char *look_first_delim(char *str, const char *delim)
 		ptr++;
 		cont--;
 	}
-	return(ptr);
+	return (ptr);
 }
 
 /**
@@ -75,7 +75,7 @@ char *look_last_delim(char *str, const char *delim)
 		ptr++;
 		cont--;
 	}
-	return(ptr);
+	return (ptr);
 }
 
 /**
@@ -99,7 +99,7 @@ char *rel_string(char *str, char *ptr)
 		str++;
 	}
 	new[cont] = '\0';
-return(new);
+return (new);
 }
 
 /**
@@ -134,10 +134,9 @@ char *_strtok(char *str, const char *delim)
 		cont++;
 	}
 	aux2 = &(aux[cont]);
-/* libera cadena y entrega apuntador a la cadena liberada
- * y a str apuntando a la cadena restante o al NULL
-*/
+/* libera cadena y entrega apuntador a la cadena liberada */
+/* y a str apuntando a la cadena restante o al NULL*/
 	ptr = rel_string(aux, aux2);
 	}
-	return(ptr);
+	return (ptr);
 }
