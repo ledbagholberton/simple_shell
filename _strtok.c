@@ -17,6 +17,7 @@ int is_in_delim(char a, const char *delim)
 		if (delim[cont] == a)
 			flag = 1;
 	}
+
 	return (flag);
 }
 
@@ -36,6 +37,8 @@ char *look_first_char(char *str, const char *delim)
         while (flag_is == 1)
         {
                 a = str[cont];
+		if (a == '\0')
+			return(NULL);
                 flag_is = is_in_delim(a, delim);
                 cont++;
         }
@@ -78,6 +81,7 @@ char *look_first_delim(char *str, const char *delim)
 	return (ptr);
 }
 
+
 /**
  *look_last_delim - look last char bfoor replace strtok function
  *
@@ -96,6 +100,8 @@ char *look_last_delim(char *str, const char *delim)
 		a = str[cont];
 		flag_is = is_in_delim(a, delim);
 		cont++;
+		if (a == '\0')
+			break;
 	}
 	ptr = str;
 	cont = cont - 1;
@@ -105,35 +111,6 @@ char *look_last_delim(char *str, const char *delim)
 		cont--;
 	}
 	return (ptr);
-}
-
-/**
- *rel_string - release string pointed by str & finished in ptr
- *
- *@str: pointer to string
- *@ptr: pointer to last char in string
- *@long: long string str
- *Return: pointer to token & str pointed to rest of string
- */
-char *rel_string(char *str, char *ptr, int len)
-{
-	char *new, *aux;
-	int fd_str, cont;
-	long int dif;
-
-	aux = str;
-	dif = ptr - str + 1;
-	new = malloc (sizeof(char) * (dif + 1));
-	fd_str = open("token.txt", O_RDWR);
-	read(fd_str, aux, len);
-	for (cont = 0; cont <= dif; cont++)
-		new[cont] = str[cont];
-       	new[dif] = '\0';
-	close (fd_str);
-	open ("token.txt", O_RDWR | O_TRUNC);
-	write(fd_str, ptr, len - dif);
-	close(fd_str);
-	return (new);
 }
 
 /**
@@ -152,42 +129,25 @@ char *_strtok(char *str, const char *delim)
 	if (str != NULL)
 	{
 		aux1 = look_first_char(str, delim);
-		aux2 = look_last_delim(str, delim);
+		if (aux1 == NULL)
+			return(NULL);
+		aux2 = look_last_delim(aux1, delim);
 		if (aux2 <= aux1)
 			return (NULL);
 	        aux2[0]  = '\0';
 		ptr = aux2 + 1;
 		return(aux1);
 	}
-	aux1 = ptr;
-	aux2 = look_last_delim(ptr, delim);
-	if (aux2 <= aux1)
-		return (NULL);
+	aux1 = look_first_char(ptr, delim);
+	if (aux1 == NULL)
+		return(NULL);
+	aux2 = look_last_delim(aux1, delim);
+	if (aux2[0] == '\0')
+		ptr = aux2;
+	else
+		ptr = aux2 + 1;
 	aux2[0] = '\0';
-	ptr = aux2 + 1;
+	if (aux2 <= aux1 || aux1 == '\0' )
+		return (NULL);
 	return(aux1);
-}
-
-
-int main()
-{
-        char message[] = "  ;Lorem; ipsum ;; dolor sit amet, adipiscing elit.";
-        char* word;
-	char delim[] = " ;"
-
-        /* get the first word from the message, seperated by
-         * space character */
-        word = _strtok(message, " ");
-        printf("1st word: %s\n", word);
-
-        /* get the second word from the message, NULL must be
-         * used to get tokens from the previous string now */
-        word = _strtok(NULL, " ");
-        printf("2nd word: %s\n", word);
-
-        /* the following loop gets the rest of the words until the
-         * end of the message */
-        while ((word = _strtok(NULL, " ")) != NULL)
-                printf("Next: %s\n", word);
-        return 0;
 }
