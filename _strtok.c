@@ -156,7 +156,7 @@ char *_strtok(char *str, const char *delim)
 		if (aux2 <= aux1)
 			return (NULL);
 	        aux2[0]  = '\0';
-		ptr = aux2;
+		ptr = aux2 + 1;
 		return(aux1);
 	}
 	aux1 = ptr;
@@ -164,30 +164,30 @@ char *_strtok(char *str, const char *delim)
 	if (aux2 <= aux1)
 		return (NULL);
 	aux2[0] = '\0';
-	ptr = aux2;
+	ptr = aux2 + 1;
 	return(aux1);
 }
 
 
 int main()
 {
-        char message[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+        char message[] = "  ;Lorem; ipsum ;; dolor sit amet, adipiscing elit.";
         char* word;
+	char delim[] = " ;"
 
         /* get the first word from the message, seperated by
          * space character */
-        word = strtok(message, " ");
+        word = _strtok(message, " ");
         printf("1st word: %s\n", word);
 
         /* get the second word from the message, NULL must be
          * used to get tokens from the previous string now */
-        word = strtok(NULL, " ");
+        word = _strtok(NULL, " ");
         printf("2nd word: %s\n", word);
 
         /* the following loop gets the rest of the words until the
          * end of the message */
-        while ((word = strtok(NULL, " ")) != NULL)
+        while ((word = _strtok(NULL, " ")) != NULL)
                 printf("Next: %s\n", word);
-
         return 0;
 }
