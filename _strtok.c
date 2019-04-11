@@ -31,25 +31,25 @@ int is_in_delim(char a, const char *delim)
  */
 char *look_first_char(char *str, const char *delim)
 {
-        char a, *ptr;
-        int cont = 0, flag_is = 1;
+	char a, *ptr;
+	int cont = 0, flag_is = 1;
 
-        while (flag_is == 1)
-        {
-                a = str[cont];
+	while (flag_is == 1)
+	{
+		a = str[cont];
 		if (a == '\0')
-			return(NULL);
-                flag_is = is_in_delim(a, delim);
-                cont++;
-        }
-        ptr = str;
-        cont--;
-        while (cont > 0)
-        {
-                ptr++;
-                cont--;
-        }
-        return (ptr);
+			return (NULL);
+		flag_is = is_in_delim(a, delim);
+		cont++;
+	}
+	ptr = str;
+	cont--;
+	while (cont > 0)
+	{
+		ptr++;
+		cont--;
+	}
+	return (ptr);
 }
 
 /**
@@ -130,24 +130,24 @@ char *_strtok(char *str, const char *delim)
 	{
 		aux1 = look_first_char(str, delim);
 		if (aux1 == NULL)
-			return(NULL);
+			return (NULL);
 		aux2 = look_last_delim(aux1, delim);
 		if (aux2 <= aux1)
 			return (NULL);
-	        aux2[0]  = '\0';
+		aux2[0] = '\0';
 		ptr = aux2 + 1;
-		return(aux1);
+		return (aux1);
 	}
 	aux1 = look_first_char(ptr, delim);
 	if (aux1 == NULL)
-		return(NULL);
+		return (NULL);
 	aux2 = look_last_delim(aux1, delim);
 	if (aux2[0] == '\0')
 		ptr = aux2;
 	else
 		ptr = aux2 + 1;
 	aux2[0] = '\0';
-	if (aux2 <= aux1 || aux1 == '\0' )
+	if (aux2 <= aux1 || aux1 == '\0')
 		return (NULL);
-	return(aux1);
+	return (aux1);
 }
