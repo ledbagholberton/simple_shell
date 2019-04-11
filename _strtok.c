@@ -136,10 +136,10 @@ char *_strtok(char *str, const char *delim)
 			ptr = aux2;
 		else
 			ptr = aux2 + 1;
-	        aux2[0]  = '\0';
+		aux2[0] = '\0';
 		if (aux2 <= aux1 || aux1 == '\0')
 			return (NULL);
-		return(aux1);
+		return (aux1);
 	}
 	aux1 = look_first_char(ptr, delim);
 	if (aux1 == NULL)

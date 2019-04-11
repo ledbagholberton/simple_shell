@@ -27,13 +27,14 @@ void check_cd(char **path, char **Bcmd, char **cat);
 /**
  *struct bicmds_t - structure of built in commands
  *@name: name of the built in command
+ *@f: array of args
  */
 
 /*Structure for Validation*/
 typedef struct bicmds_t
 {
 	char *name;
-	int (*func)(char **argv);
+	int (*f)(char **argv);
 } bicmds;
 
 int is_in_delim(char a, const char *delim);
@@ -41,8 +42,12 @@ char *look_first_char(char *str, const char *delim);
 char *look_first_delim(char *str, const char *delim);
 char *look_last_delim(char *str, const char *delim);
 char *_strtok(char *str, const char *delim);
+int _atoi(char *s);
 
 /*Global Variable*/
 extern char **environ;
 
+/* Prototype test */
+int prueba(char** cadena);
+int built_exit(char** cadena);
 #endif

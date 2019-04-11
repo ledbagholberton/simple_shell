@@ -10,15 +10,15 @@
 void valid_command(char **argv, char *name)
 {
 	bicmds builtinCmds[] = {
-		{"cd", 2,  NULL},
-		{"env", 1, NULL},
-		{"setenv", 3, NULL},
-		{"unsetenv", 2, NULL},
-		{"exit", 2, NULL},
-		{"alias", 3, NULL},
-		{"help", 2, NULL},
-		{"history", 2, NULL},
-		{NULL, 0, NULL}
+		{"cd", prueba},
+		{"env", prueba},
+		{"setenv", prueba},
+		{"unsetenv", prueba},
+		{"exit", built_exit},
+		{"alias", prueba},
+		{"help", prueba},
+		{"history", prueba},
+		{NULL, NULL}
 	};
 	int iter = 0;
 
@@ -26,8 +26,8 @@ void valid_command(char **argv, char *name)
 	{
 		if (_strncmp(builtinCmds[iter].name, argv[0], 0) == 0)
 		{
-			printf("LLAMAR FUNCION [%s]\n", argv[0]);
-			exit(EXIT_FAILURE);
+			if (builtinCmds[iter].f(argv) == -1)
+				exit(EXIT_FAILURE);
 		}
 		iter++;
 	}
