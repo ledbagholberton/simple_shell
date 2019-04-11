@@ -33,7 +33,8 @@ void check_cd(char **path, char **Bcmd, char **cat);
 typedef struct bicmds_t
 {
 	char *name;
-	/*pointer to a function*/
+	int nArgs;
+	int (*func)(int n, ...);
 } bicmds;
 
 int is_in_delim(char a, const char *delim);

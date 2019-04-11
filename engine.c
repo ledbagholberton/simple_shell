@@ -10,15 +10,15 @@
 void valid_command(char **argv, char *name)
 {
 	bicmds builtinCmds[] = {
-		{"cd"},
-		{"env"},
-		{"setenv"},
-		{"unsetenv"},
-		{"exit"},
-		{"alias"},
-		{"help"},
-		{"history"},
-		{NULL}
+		{"cd", 2,  NULL},
+		{"env", 1, NULL},
+		{"setenv", 3, NULL},
+		{"unsetenv", 2, NULL},
+		{"exit", 2, NULL},
+		{"alias", 3, NULL},
+		{"help", 2, NULL},
+		{"history", 2, NULL},
+		{NULL, 0, NULL}
 	};
 	int iter = 0;
 

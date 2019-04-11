@@ -144,7 +144,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	}
 	if (leido > size)
 	{
-		*lineptr = (char *) _realloc(*lineptr, leido + 120);
+		*lineptr = _realloc(*lineptr, leido + 120);
 		if (*lineptr == NULL)
 			return (-1);
 	}
