@@ -1,4 +1,3 @@
-
 #include "simple_shell.h"
 
 /**
@@ -143,7 +142,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		if (*lineptr == NULL)
 			return (-1);
 	}
-	if (leido > size)
+	else if (leido > size)
 	{
 		*lineptr = _realloc(*lineptr, leido + 120);
 		if (*lineptr == NULL)
