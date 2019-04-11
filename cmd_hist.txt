@@ -591,3 +591,128 @@ ls
 
 
 
+ls
+ls
+l
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls -l
+ls -all -1 -l -s
+ls -s
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+lsls
+ls
+lsls
+ls
+ls
+ls
+ls
+ls
+ls -l
+ls bb
+l
+ls bb
+ls bbl
+ls bb
+ls bb
+ls bb
+ls bb
+ls bb
+ls -l
+ls -l
+ls -l
+ls -l
+ls -l
+ls -l
+ls -l
+ls -l
+ls -l
+ls
+ls
+ls
+ls -l
+ls ?s
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+      ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+clear
+clear
+ls
+ls
+ls
+ls
+ls
+lsls
+ls
+ls
+ls
+cat -e main.c
+ls
+
+lasd
+ls
+ls
+ls
+ls
+ls
+ls
+l;s
+ls
+
+
+ls
+l
+
+
+
+
+
+
+ls
+betty *
+ls
+l
+ls
+ls
+ls
