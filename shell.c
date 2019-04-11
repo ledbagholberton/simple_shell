@@ -10,8 +10,8 @@ void invoke_shell(char *name)
 {
 	ssize_t numLines = 0;
 	size_t len = 0;
-	int lenPrompt = 8;
-	char *buffer = NULL, **argv, *prompt = "shelly$ ";
+	int lenPrompt = 18;
+	char *buffer = NULL, **argv, *prompt = "\x1B[36mshelly\x1B[0m$ ";
 	pid_t child_pid;
 
 	/*checks for interactive mode*/
