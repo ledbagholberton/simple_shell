@@ -51,26 +51,26 @@ char *_which(char *cmd)
 
 	while (_strncmp(environ[i], "PATH", 4) != 0)
 		i++;
-	path = strtok(environ[i], "=");
+	path = _strtok(environ[i], "=");
 	if (*cmd != '/')
 		Bcmd = str_concat("/", cmd);
 	else
 		return (cmd);
-	path = strtok(NULL, "");
+	path = _strtok(NULL, "");
 	if (*path == ':')
 		check_cd(&path, &Bcmd, &cat);
 	else
-		path = strtok(path, ":");
+		path = _strtok(path, ":");
 	while (path != NULL)
 	{
-		path = strtok(NULL, "");
+		path = _strtok(NULL, "");
 		if (*path == ':')
 		{
 			check_cd(&path, &Bcmd, &cat);
 		}
 		else
 		{
-			path = strtok(path, ":");
+			path = _strtok(path, ":");
 			cat = str_concat(path, Bcmd);
 			if (stat(cat, &st) == 0)
 				break;
@@ -99,6 +99,6 @@ void check_cd(char **path, char **Bcmd, char **cat)
 	if (stat(*cat, &st) == 0)
 		*path = NULL;
 	else
-		*path = strtok(*path, ":");
+		*path = _strtok(*path, ":");
 
 }
