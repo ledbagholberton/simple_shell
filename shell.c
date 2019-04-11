@@ -10,7 +10,7 @@ void invoke_shell(char *name)
 {
 	ssize_t numLines = 0;
 	size_t len = 0;
-	int lenPrompt = 22;
+	int lenPrompt = 22, wstatus;
 	char *buffer = NULL, **argv, *prompt = "\033[1m\x1B[34mShelley\x1B[0m$ ";
 	pid_t child_pid;
 
@@ -34,7 +34,17 @@ void invoke_shell(char *name)
 		else
 		{
 			/*wait for child to finish*/
-			wait(NULL);
+			wait(&wstatus);
+			if (WIFEXITED(wstatus) == 1)
+			{
+				wstatus = WEXITSTATUS(wstatus);
+				if (wstatus != 0)
+				{
+					free(buffer);
+					free(argv);
+					exit(wstatus);
+				}
+			}
 		}
 		write(STDOUT_FILENO, prompt, lenPrompt);
 		free(buffer);
