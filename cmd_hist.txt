@@ -716,3 +716,16 @@ l
 ls
 ls
 ls
+;s
+ls
+clear
+clear
+
+la
+ls
+clear
+cat cmd_h	
+cat cmd_hist.txt
+clear
+ls
+pwd
