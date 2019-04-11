@@ -89,6 +89,7 @@ void *_realloc(void *ptr, unsigned int new_size)
 {
 	char *a;
 	unsigned int cont = 0;
+	char *aux = ptr;
 
 	if (ptr == NULL)
 		return (malloc(new_size));
@@ -97,12 +98,12 @@ void *_realloc(void *ptr, unsigned int new_size)
 		free(ptr);
 		return (NULL);
 	}
-	a = malloc(new_size);
+	a = malloc(new_size * sizeof(char));
 	if (a == NULL)
 		return (NULL);
-	while (((char *)ptr)[cont] != '\0')
+	while (aux[cont] != '\0')
 	{
-		a[cont] = ((char *)ptr)[cont];
+		a[cont] = aux[cont];
 		cont++;
 	}
 	free(ptr);
@@ -122,7 +123,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	ssize_t size;
 	char key_buff[1024];
 	char *delim_2 = ";\n";
-	int leido, del_delim = 0, cont, fd_log;
+	int leido = 0, del_delim = 0, cont, fd_log;
 
 	size = *n;
 	(void) stream;

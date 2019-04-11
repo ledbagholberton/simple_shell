@@ -37,8 +37,10 @@ void invoke_shell(char *name)
 			wait(NULL);
 		}
 		write(STDOUT_FILENO, prompt, lenPrompt);
+		free(buffer);
+		free(argv);
+		buffer = NULL;
 	}
-	free(buffer);
 }
 
 /**
