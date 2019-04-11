@@ -113,6 +113,7 @@ char *str_concat(char *s1, char *s2)
 		return (NULL);
 	}
 
+	size--;
 	for (; size >= tmp; size--)
 		*(strcat + size) = *(s2 + size - tmp);
 	for (; size >= 0; size--)
