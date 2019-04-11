@@ -15,6 +15,7 @@ int built_exit(char** cadena)
 	else
 	{
 		status = _atoi(cadena[1]);
+		free(cadena);
 		exit(status);
 	}
 /* In the shell program it is required to evaluate in
