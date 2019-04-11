@@ -42,8 +42,12 @@ char *look_first_char(char *str, const char *delim);
 char *look_first_delim(char *str, const char *delim);
 char *look_last_delim(char *str, const char *delim);
 char *_strtok(char *str, const char *delim);
+int _atoi(char *s);
 
 /*Global Variable*/
 extern char **environ;
 
+/* Prototype test */
+int prueba(char** cadena);
+int built_exit(char** cadena);
 #endif
