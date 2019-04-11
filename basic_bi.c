@@ -11,7 +11,7 @@ int built_exit(char** cadena)
 {
         int status;
        	if (cadena[1] == NULL)
-		kill(-1, SIGKILL);
+		exit;
 	else
 	{
 		status = _atoi(cadena[1]);
