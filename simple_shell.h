@@ -48,6 +48,6 @@ int _atoi(char *s);
 extern char **environ;
 
 /* Prototype test */
-int prueba(char** cadena);
-int built_exit(char** cadena);
+int prueba(char **cadena);
+int built_exit(char **cadena);
 #endif
