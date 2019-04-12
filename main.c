@@ -7,9 +7,10 @@
  *Return: 0
  */
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char **env)
 {
 	(void)argc;
+	create_env(env);
 	invoke_shell(argv[0]);
 	return (0);
 }
