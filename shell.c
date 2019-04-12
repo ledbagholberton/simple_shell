@@ -33,11 +33,9 @@ void invoke_shell(char *name)
 			if (WIFEXITED(wstatus) == 1)
 			{
 				wstatus = WEXITSTATUS(wstatus);
-				printf("wstatus: %d \n", wstatus);
 				if (wstatus != 0 &&  wstatus != 1 
 				    && wstatus != 255)
 				{
-					printf("Status %d\n", wstatus);
 					if (wstatus == 123)
 						cd_parent(argv, name);
 					else
