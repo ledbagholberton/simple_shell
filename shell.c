@@ -22,30 +22,28 @@ void invoke_shell(char *name)
 		wstatus_tmp = wstatus;
 		argv = split(buffer, " \n");
 		child_pid = fork();
-		if (child_pid == -1)
-			perror(name);
+		child_pid == -1 ? perror(name) : (void) 0;
 		if (child_pid == 0)
 			valid_command(argv, name);
 		else
 		{
-			wait(&wstatus);
-			if (WIFEXITED(wstatus) == 1)
+	       	wait(&wstatus);
+       		if (WIFEXITED(wstatus) == 1)
 			{
-				wstatus = WEXITSTATUS(wstatus);
-				if (wstatus != 0 &&  wstatus != 1
-				    && wstatus != 255)
+			wstatus = WEXITSTATUS(wstatus);
+			if (wstatus != 0 &&  wstatus != 1 && wstatus != 255)
 				{
-					if (wstatus == 123)
-						cd_parent(argv, name);
-					else
-					{
-						free(buffer);
-						free(argv);
-						if (wstatus == 124)
-							exit(wstatus_tmp);
-						else
-							exit(wstatus);
-					}
+				if (wstatus == 123)
+				    cd_parent(argv, name);
+				else
+				    {
+				    free(buffer);
+				    free(argv);
+				    if (wstatus == 124)
+					    exit(wstatus_tmp);
+				    else
+					    exit(wstatus);
+				    }
 				}
 			}
 		}

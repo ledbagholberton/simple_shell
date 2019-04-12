@@ -45,14 +45,14 @@ int built_cd(char **cadena)
 /**
  *cd_parent - change directory
  *
- *@cadena: array from argv
- *
+ *@argv: array from argv
+ *@name: name  of shell
  *Return: pointer to string
  */
 
 void cd_parent(char **argv, char *name)
 {
-	unsigned int i = 0;
+	unsigned int i = 0, cont;
 	char *home, buf[BUFSIZ], *cp;
 
 	cp = getcwd(buf, sizeof(buf));
@@ -60,9 +60,10 @@ void cd_parent(char **argv, char *name)
 	{
 		while (_strncmp(environ[i], "HOME", 4) != 0)
 			i++;
-		_strtok(environ[i], "=");
-		home = _strtok(NULL, "");
-		if(chdir(home) == -1)
+		for (cont = 0; environ[i][cont] != '='; cont++)
+			;
+		home = environ[i] + cont + 1;
+		if (chdir(home) == -1)
 			perror(name);
 	}
 	else if (chdir(argv[1]) == -1)
@@ -70,5 +71,4 @@ void cd_parent(char **argv, char *name)
 		chdir(cp);
 		printf("Error en CD");
 	}
-	return;
 }
