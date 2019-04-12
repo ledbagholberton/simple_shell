@@ -10,7 +10,7 @@
 void valid_command(char **argv, char *name)
 {
 	bicmds builtinCmds[] = {
-		{"cd", prueba},
+		{"cd", built_cd},
 		{"env", prueba},
 		{"setenv", prueba},
 		{"unsetenv", prueba},

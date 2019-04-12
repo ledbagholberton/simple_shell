@@ -50,4 +50,7 @@ extern char **environ;
 /* Prototype test */
 int prueba(char **cadena);
 int built_exit(char **cadena);
+int built_cd(char **cadena);
+void cd_parent(char **argv, char *name);
 #endif
+

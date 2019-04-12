@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+ #include "simple_shell.h"
 #include <errno.h>
 
 /**
@@ -13,6 +13,7 @@ void invoke_shell(char *name)
 	size_t len = 0;
 	int lenPrompt = 22, wstatus = 0, wstatus_tmp = 15;
 	char *buffer = NULL, **argv, *prompt = "\033[1m\x1B[34mShelley\x1B[0m$ ";
+	char buf[BUFSIZ], *cp, *my_prompt;
 	pid_t child_pid;
 
 	check_interactive(&lenPrompt);
@@ -32,18 +33,31 @@ void invoke_shell(char *name)
 			if (WIFEXITED(wstatus) == 1)
 			{
 				wstatus = WEXITSTATUS(wstatus);
-				if (wstatus != 0 &&  wstatus != 1)
+				printf("wstatus: %d \n", wstatus);
+				if (wstatus != 0 &&  wstatus != 1 
+				    && wstatus != 255)
 				{
-					free(buffer);
-					free(argv);
-					if (wstatus == 254)
-						exit(wstatus_tmp);
+					printf("Status %d\n", wstatus);
+					if (wstatus == 123)
+						cd_parent(argv, name);
 					else
-						exit(wstatus);
+					{
+						free(buffer);
+						free(argv);
+						if (wstatus == 124)
+							exit(wstatus_tmp);
+						else
+							exit(wstatus);
+					}
 				}
 			}
 		}
-		write(STDOUT_FILENO, prompt, lenPrompt);
+		cp = getcwd(buf, sizeof(buf));
+		my_prompt = str_concat(cp, prompt);
+		for (len = 0; my_prompt[len] != '\0'; len++)
+			;
+		write(STDOUT_FILENO, my_prompt, len);
+
 		free(buffer);
 		free(argv);
 		buffer = NULL;
