@@ -23,6 +23,7 @@ int _strncmp(char *s1, char *s2, int n);
 char *_which(char *cmd);
 char *str_concat(char *s1, char *s2);
 void check_cd(char **path, char **Bcmd, char **cat);
+int _strlen(char *s);
 
 /**
  *struct bicmds_t - structure of built in commands
