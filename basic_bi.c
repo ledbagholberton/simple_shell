@@ -15,7 +15,7 @@ int built_exit(char **cadena)
 	{
 		free(cadena[0]);
 		free(cadena);
-		exit(2);
+		exit(254);
 	}
 	else
 	{
