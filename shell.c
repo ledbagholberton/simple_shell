@@ -1,4 +1,5 @@
 #include "simple_shell.h"
+#include <errno.h>
 
 /**
  *invoke_shell - Super simple shell
@@ -10,35 +11,43 @@ void invoke_shell(char *name)
 {
 	ssize_t numLines = 0;
 	size_t len = 0;
-	int lenPrompt = 22;
+	int lenPrompt = 22, wstatus = 0, wstatus_tmp = 15;
 	char *buffer = NULL, **argv, *prompt = "\033[1m\x1B[34mShelley\x1B[0m$ ";
 	pid_t child_pid;
 
-	/*checks for interactive mode*/
 	check_interactive(&lenPrompt);
-	/*while no input is digited in the terminal wait*/
 	write(STDOUT_FILENO, prompt, lenPrompt);
 	while ((numLines = _getline(&buffer, &len, stdin)) != -1)
 	{
-		/*split string digited to execute commands*/
+		wstatus_tmp = wstatus;
 		argv = split(buffer, " \n");
-		/*create child for executing binary file*/
 		child_pid = fork();
 		if (child_pid == -1)
 			perror(name);
 		if (child_pid == 0)
-		{
-			/*validate and execute command*/
 			valid_command(argv, name);
-		}
 		else
 		{
-			/*wait for child to finish*/
-			wait(NULL);
+			wait(&wstatus);
+			if (WIFEXITED(wstatus) == 1)
+			{
+				wstatus = WEXITSTATUS(wstatus);
+				if (wstatus != 0 &&  wstatus != 1)
+				{
+					free(buffer);
+					free(argv);
+					if (wstatus == 254)
+						exit(wstatus_tmp);
+					else
+						exit(wstatus);
+				}
+			}
 		}
 		write(STDOUT_FILENO, prompt, lenPrompt);
+		free(buffer);
+		free(argv);
+		buffer = NULL;
 	}
-	free(buffer);
 }
 
 /**
