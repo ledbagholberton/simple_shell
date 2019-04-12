@@ -1,4 +1,4 @@
- #include "simple_shell.h"
+#include "simple_shell.h"
 #include <errno.h>
 
 /**
@@ -12,12 +12,11 @@ void invoke_shell(char *name)
 	ssize_t numLines = 0;
 	size_t len = 0;
 	int lenPrompt = 22, wstatus = 0, wstatus_tmp = 15;
-	char *buffer = NULL, **argv, *prompt = "\033[1m\x1B[34mShelley\x1B[0m$ ";
-	char buf[BUFSIZ], *cp, *my_prompt;
+	char *buffer = NULL, **argv;
 	pid_t child_pid;
 
 	check_interactive(&lenPrompt);
-	write(STDOUT_FILENO, prompt, lenPrompt);
+	print_prompt(lenPrompt);
 	while ((numLines = _getline(&buffer, &len, stdin)) != -1)
 	{
 		wstatus_tmp = wstatus;
@@ -33,7 +32,7 @@ void invoke_shell(char *name)
 			if (WIFEXITED(wstatus) == 1)
 			{
 				wstatus = WEXITSTATUS(wstatus);
-				if (wstatus != 0 &&  wstatus != 1 
+				if (wstatus != 0 &&  wstatus != 1
 				    && wstatus != 255)
 				{
 					if (wstatus == 123)
@@ -50,17 +49,31 @@ void invoke_shell(char *name)
 				}
 			}
 		}
-		cp = getcwd(buf, sizeof(buf));
-		my_prompt = str_concat(cp, prompt);
-		for (len = 0; my_prompt[len] != '\0'; len++)
-			;
-		write(STDOUT_FILENO, my_prompt, len);
-
+		print_prompt(lenPrompt);
 		free(buffer);
 		free(argv);
 		buffer = NULL;
 	}
 }
+
+void print_prompt(int lenPrompt)
+{
+	char *cp, *my_prompt, *buf = NULL;
+	char *prompt = "\033[1m\x1B[34mShelley\x1B[0m:";
+	int len;
+
+	if (lenPrompt != 0)
+	{
+		cp = getcwd(buf, 0);
+		my_prompt = str_concat(prompt, cp);
+		len = _strlen(my_prompt);
+		write(STDOUT_FILENO, my_prompt, len);
+		write(STDOUT_FILENO, "$ ", 2);
+		free(cp);
+		free(my_prompt);
+	}
+}
+
 
 /**
  *check_interactive - checks if the shell is interactive or not
