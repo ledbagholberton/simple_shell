@@ -69,6 +69,7 @@ void cd_parent(char **argv, char *name)
 	else if (chdir(argv[1]) == -1)
 	{
 		chdir(cp);
-		printf("Error en CD");
+		exit(0);
+		perror("Error en CD");
 	}
 }
