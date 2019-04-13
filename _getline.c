@@ -10,9 +10,16 @@
 void init_file(char *key_buff, int leido)
 {
 	int fd_log, fd_hist, escrito, historico;
+        char *my_path;
 
-	fd_log = open("cmd_log.txt", O_RDWR | O_TRUNC | O_CREAT, 0660);
-	fd_hist = open("cmd_hist.txt", O_RDWR | O_APPEND | O_CREAT, 0660);
+	my_path = get_home();
+	my_path = str_concat(my_path, "/cmd_log.txt");
+	fd_log = open(my_path, O_RDWR | O_TRUNC | O_CREAT, 0660);
+	free(my_path);
+	my_path = get_home();
+	my_path = str_concat(my_path, "/cmd_hist.txt");
+	fd_hist = open(my_path, O_RDWR | O_APPEND | O_CREAT, 0660);
+	free(my_path);
 	escrito = write(fd_log, key_buff, leido);
 	if (escrito == -1)
 		exit(-1);
@@ -21,6 +28,24 @@ void init_file(char *key_buff, int leido)
 		exit(-1);
 	close(fd_hist);
 	close(fd_log);
+}
+
+/**
+ * get_home- return home
+ *
+  *Return: Integer with long
+ */
+char *get_home(void)
+{
+	int a = 0, cont;
+	char *home;
+
+	while (_strncmp(environ[a], "HOME", 4) != 0)
+		a++;
+	for (cont = 0; environ[a][cont] != '='; cont++)
+		;
+	home = environ[a] + cont + 1;
+	return (home);
 }
 
 /**
@@ -33,25 +58,28 @@ void init_file(char *key_buff, int leido)
 int delete_delim(char *delim_2)
 {
 	int fd_log, leido, escrito, cont;
-	char tmp_buffer[1024], *first_delim;
+	char tmp_buffer[1024], *first_delim, *my_path;
 	long int diferencia;
 
 	for (cont = 0; cont == 1023; cont++)
 		tmp_buffer[cont] = 4;
-	fd_log = open("cmd_log.txt", O_RDONLY);
+	my_path = get_home();
+	my_path = str_concat(my_path, "/cmd_log.txt");
+	fd_log = open(my_path, O_RDONLY);
 	leido = read(fd_log, tmp_buffer, 1024);
 	close(fd_log);
 	if (leido == -1 || leido == 0)
 		return (-1);
 	first_delim = look_first_delim(tmp_buffer, delim_2) + 1;
 	diferencia = first_delim - tmp_buffer;
-	fd_log = open("cmd_log.txt", O_WRONLY | O_TRUNC);
+	fd_log = open(my_path, O_WRONLY | O_TRUNC);
 	if (fd_log == -1)
 		return (-1);
 	escrito = write(fd_log, first_delim, (long int)leido - diferencia);
 	if (escrito == -1)
 		return (-1);
 	close(fd_log);
+	free(my_path);
 	return (escrito);
 }
 
@@ -122,7 +150,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
 	ssize_t size;
 	char key_buff[1024];
-	char *delim_2 = ";\n";
+	char *delim_2 = ";\n", *my_path;
 	int leido = 0, del_delim = 0, cont, fd_log;
 
 	size = *n;
@@ -132,7 +160,10 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	leido = read(STDIN_FILENO, key_buff, 1024);
 	if (leido != 0)
 		init_file(key_buff, leido);
-	fd_log = open("cmd_log.txt", O_RDONLY);
+	my_path = get_home();
+        my_path = str_concat(my_path, "/cmd_log.txt");
+	fd_log = open(my_path, O_RDONLY);
+	free(my_path);
 	leido = read(fd_log, key_buff, 1024);
 	if (leido == -1)
 		return (-1);
