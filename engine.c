@@ -21,6 +21,7 @@ void valid_command(char **argv, char *name)
 		{NULL, NULL}
 	};
 	int iter = 0;
+	char *ful_path;
 
 	while (builtinCmds[iter].name != NULL)
 	{
@@ -31,9 +32,20 @@ void valid_command(char **argv, char *name)
 		}
 		iter++;
 	}
-	if (execve(_which(*argv), argv, NULL) == -1)
-		perror(name);
-	exit(EXIT_FAILURE);
+	ful_path = _which(*argv);
+	if (ful_path != NULL)
+	{
+		if (execve(ful_path, argv, NULL) == -1)
+			perror(name);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		free(argv[0]);
+		free(argv);
+		printf("Not Found\n");
+		exit(1);
+	}
 }
 
 /**
@@ -46,16 +58,14 @@ char *_which(char *cmd)
 {
 
 	struct stat st;
-	unsigned int i = 0;
-	char *path, *cat, *Bcmd;
+	char *path, *cat, *Bcmd, *tmpEnviron;
 
-	while (_strncmp(environ[i], "PATH", 4) != 0)
-		i++;
-	path = _strtok(environ[i], "=");
 	if (*cmd != '/')
 		Bcmd = str_concat("/", cmd);
 	else
 		return (cmd);
+	tmpEnviron = get_path();
+	path = _strtok(tmpEnviron, "=");
 	path = _strtok(NULL, "");
 	if (*path == ':')
 		check_cd(&path, &Bcmd, &cat);
@@ -64,10 +74,10 @@ char *_which(char *cmd)
 	while (path != NULL)
 	{
 		path = _strtok(NULL, "");
+		if (path == NULL)
+			break;
 		if (*path == ':')
-		{
 			check_cd(&path, &Bcmd, &cat);
-		}
 		else
 		{
 			path = _strtok(path, ":");
@@ -77,9 +87,14 @@ char *_which(char *cmd)
 			free(cat);
 		}
 	}
-	if (cat != (Bcmd + 1))
+	free(tmpEnviron);
+	if (path != NULL)
+		cat != (Bcmd + 1) ? free(Bcmd) : (void)1;
+	else
+	{
+		cat = path;
 		free(Bcmd);
-	/*HARCODEAR EL ERROR*/
+	}
 	return (cat);
 }
 
@@ -101,4 +116,52 @@ void check_cd(char **path, char **Bcmd, char **cat)
 	else
 		*path = _strtok(*path, ":");
 
+}
+
+/**
+ *_strdup - copy a string
+ *@str: string to be copyied
+ *Return: pointer to a newly allocated space in memory
+ */
+
+char *_strdup(char *str)
+{
+	int size = 1;
+	char *cpystr;
+
+	if (str == NULL)
+	{
+		return (NULL);
+	}
+
+	while (*(str + size - 1) != '\0')
+		size++;
+
+	cpystr = malloc(size * sizeof(char));
+
+	if (cpystr == NULL)
+	{
+		free(cpystr);
+		return (NULL);
+	}
+	size--;
+	for (; size >= 0; size--)
+		*(cpystr + size) = *(str + size);
+	return (cpystr);
+}
+
+/**
+ *get_path - function that get path variable in k
+ *Return: char pointing to a copy to path
+ */
+
+char *get_path(void)
+{
+	unsigned int i = 0;
+	char *tmpEnviron;
+
+	while (_strncmp(environ[i], "PATH", 4) != 0)
+		(i)++;
+	tmpEnviron = _strdup(environ[i]);
+	return (tmpEnviron);
 }
