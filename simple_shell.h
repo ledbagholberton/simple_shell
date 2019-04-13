@@ -53,4 +53,9 @@ extern char **environ;
 /* Prototype test */
 int prueba(char **cadena);
 int built_exit(char **cadena);
+int built_cd(char **cadena);
+void cd_parent(char **argv, char *name);
+void print_prompt(int lenPrompt);
+void hand_status(int wstatus, char **argv, char *name, char *buffer, int wstatus_tmp);
 #endif
+

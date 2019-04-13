@@ -68,7 +68,8 @@ int _strcopy(char *str, char *ptr)
 {
 	unsigned int cont = 0;
 
-	while (str[cont] != 4 && str[cont] != '\n' && str[cont] != '\0')
+	while (str[cont] != 4 && str[cont] != '\n'
+	       && str[cont] != '\0' && str[cont] != ';')
 	{
 		ptr[cont] = str[cont];
 		cont++;
