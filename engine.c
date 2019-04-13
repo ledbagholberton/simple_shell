@@ -17,7 +17,7 @@ void valid_command(char **argv, char *name)
 		{"exit", built_exit},
 		{"alias", prueba},
 		{"help", prueba},
-		{"history", prueba},
+		{"history", built_history},
 		{NULL, NULL}
 	};
 	int iter = 0;

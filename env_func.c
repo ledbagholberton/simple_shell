@@ -9,8 +9,11 @@
 void create_env(char **env)
 {
 	int fileDesc, envIter = 0, len = 0;
+	char *home;
 
-	fileDesc = open("env.txt", O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	home = str_concat(get_home(), "/env.txt");
+	fileDesc = open(home, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	free(home);
 	if (fileDesc == -1)
 		return;
 	while (env[envIter] != NULL)
@@ -31,8 +34,10 @@ void create_env(char **env)
 
 int _env(char *argv[])
 {
-	char *cat[] = {"/bin/cat", "env.txt", NULL};
+	char *home = str_concat(get_home(), "/env.txt");
+	char *cat[] = {"/bin/cat", NULL, NULL};
 
+	cat[1] = home;
 	(void) argv;
 	if (execve(cat[0], cat, NULL) == -1)
 		exit(-1);

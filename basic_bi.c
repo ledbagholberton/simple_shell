@@ -52,24 +52,54 @@ int built_cd(char **cadena)
 
 void cd_parent(char **argv, char *name)
 {
-	unsigned int i = 0, cont;
-	char *home, buf[BUFSIZ], *cp;
+	char *home, buf[BUFSIZ], *cp, *chr;
 
 	cp = getcwd(buf, sizeof(buf));
-	if (argv[1] == NULL)
+	home = get_home();
+	if (argv[1] != NULL)
+		chr = argv[1];
+	else
+		chr = "";
+	if (argv[1] == NULL || chr[0] == '~' || chr[0] == '-')
 	{
-		while (_strncmp(environ[i], "HOME", 4) != 0)
-			i++;
-		for (cont = 0; environ[i][cont] != '='; cont++)
-			;
-		home = environ[i] + cont + 1;
-		if (chdir(home) == -1)
+		if (chr[0] == '-')
+		{
+			chdir("..");
+		}
+		else if (chdir(home) == -1)
+		{
+			chdir(cp);
 			perror(name);
+		}
 	}
 	else if (chdir(argv[1]) == -1)
 	{
 		chdir(cp);
-		exit(0);
-		perror("Error en CD");
+		perror(name);
 	}
+}
+
+/**
+ *built_history - builtin history
+ *
+ *@cadena: data info
+ *
+ *Return: No return
+ */
+
+int built_history(char **cadena)
+{
+	char *home, *tmp[] = {"/bin/cat", NULL, NULL};
+
+	(void)cadena;
+	home = get_home();
+	tmp[1] = str_concat(home, "/cmd_hist.txt");
+	if (execve("/bin/cat", tmp, NULL) == -1)
+		{
+			perror("");
+			free(tmp[1]);
+			return (-1);
+		}
+	free(tmp[1]);
+	return (0);
 }
