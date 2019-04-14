@@ -66,9 +66,11 @@ int _strcopy(char *str, char *ptr)
 {
 	unsigned int cont = 0;
 
+	printf("%i\n", str[cont]);
 	while (str[cont] > 0 && str[cont] != '\n'
 	       && str[cont] != '\0' && str[cont] != ';')
 	{
+		printf("%i\n", str[cont]);
 		ptr[cont] = str[cont];
 		cont++;
 	}
@@ -135,13 +137,12 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	leido = read(STDIN_FILENO, key_buff, 1024);
 	if (leido != 0)
 		init_file(key_buff, leido);
-	else
-		return (0);
 	my_path = get_home();
 	my_path = str_concat(my_path, "/cmd_log.txt");
 	fd_log = open(my_path, O_RDONLY);
 	free(my_path);
 	leido = read(fd_log, key_buff, 1024);
+	printf("ww");
 	if (leido == -1)
 		return (-1);
 	close(fd_log);
@@ -158,7 +159,9 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 			return (-1);
 	}
 	leido = _strcopy(key_buff, *lineptr);
+	printf("%i\n", leido);
 	(*lineptr)[leido] = '\0';
+	printf("%s\n", *lineptr);
 	del_delim = delete_delim(delim_2);
 	if (del_delim == -1)
 		return (-1);
