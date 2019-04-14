@@ -1,36 +1,6 @@
 #include "simple_shell.h"
 
 /**
- * init_file - initialize files log & hist
- *
- *@key_buff: pointer to buffer
- *@leido: leido
- *Return: No return
- */
-void init_file(char *key_buff, int leido)
-{
-	int fd_log, fd_hist, escrito, historico;
-        char *my_path;
-
-	my_path = get_home();
-	my_path = str_concat(my_path, "/cmd_log.txt");
-	fd_log = open(my_path, O_RDWR | O_TRUNC | O_CREAT, 0660);
-	free(my_path);
-	my_path = get_home();
-	my_path = str_concat(my_path, "/cmd_hist.txt");
-	fd_hist = open(my_path, O_RDWR | O_APPEND | O_CREAT, 0660);
-	free(my_path);
-	escrito = write(fd_log, key_buff, leido);
-	if (escrito == -1)
-		exit(-1);
-	historico = write(fd_hist, key_buff, leido);
-	if (historico == -1)
-		exit(-1);
-	close(fd_hist);
-	close(fd_log);
-}
-
-/**
  * get_home- return home
  *
   *Return: Integer with long
@@ -161,7 +131,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	if (leido != 0)
 		init_file(key_buff, leido);
 	my_path = get_home();
-        my_path = str_concat(my_path, "/cmd_log.txt");
+	my_path = str_concat(my_path, "/cmd_log.txt");
 	fd_log = open(my_path, O_RDONLY);
 	free(my_path);
 	leido = read(fd_log, key_buff, 1024);
