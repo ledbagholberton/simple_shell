@@ -56,16 +56,23 @@ void cd_parent(char **argv, char *name)
 
 	cp = getcwd(buf, sizeof(buf));
 	home = get_home();
-	chr = argv[1];
+	if (argv[1] != NULL)
+		chr = argv[1];
+	else
+		chr = "";
 	if (argv[1] == NULL || chr[0] == '~' || chr[0] == '-')
 	{
-		if (chdir(home) == -1)
+		if (chr[0] == '-')
+		{
+			chdir("..");
+		}
+		else if (chdir(home) == -1)
 		{
 			chdir(cp);
 			perror(name);
 		}
 	}
-	if (chdir(argv[1]) == -1)
+	else if (chdir(argv[1]) == -1)
 	{
 		chdir(cp);
 		perror(name);

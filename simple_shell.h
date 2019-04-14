@@ -59,5 +59,6 @@ void print_prompt(int lenPrompt);
 void hand_status(int wstatus, char **argv, char *name, char *buffer, int wstatus_tmp);
 char *get_home(void);
 int built_history(char **cadena);
+char *get_path(void);
+char *_strdup(char *str);
 #endif
-
