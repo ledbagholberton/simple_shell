@@ -127,16 +127,17 @@ int built_help(char **cadena)
 
 	cont = 0;
 	len = strlen(list_b[cont][0]);
-	while(_strncmp(cadena[cont], list_b[cont][0], len) != 0)
+	while(cadena[1] != NULL
+	      && _strncmp(cadena[1], list_b[cont][0], len) != 0 && cont < 8)
 		{
-			printf("cadena[cont]%s \n", cadena[cont]);
-//			printf("list_b[cont]%s \n", list_b[cont]);
 			cont++;
 			len = strlen(list_b[cont][0]);
 		}
 	home = get_home();
-	tmp[1] = str_concat(home, list_b[cont][1]);
-	printf("cadena = %s\n", tmp[1]);
+	if (cadena[1] = NULL || cont >=8)
+		tmp[1] = str_concat(home, "/help_empty.txt");
+	else
+		tmp[1] = str_concat(home, list_b[cont][1]);
 	if (execve("/bin/cat", tmp, NULL) == -1)
 		{
 			perror("");
