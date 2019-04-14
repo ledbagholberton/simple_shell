@@ -59,7 +59,7 @@ char *_which(char *cmd)
 {
 
 	struct stat st;
-	char *path, *cat, *Bcmd, *tmpEnviron;
+	char *path, *cat, *Bcmd, *tmpEnviron, sw = '0';
 
 	if (*cmd != '/')
 		Bcmd = str_concat("/", cmd);
@@ -69,7 +69,7 @@ char *_which(char *cmd)
 	path = _strtok(tmpEnviron, "=");
 	path = _strtok(NULL, "");
 	if (*path == ':')
-		check_cd(&path, &Bcmd, &cat);
+		check_cd(&path, &Bcmd, &cat, &sw);
 	else
 		path = _strtok(path, ":");
 	while (path != NULL)
@@ -78,7 +78,7 @@ char *_which(char *cmd)
 		if (path == NULL)
 			break;
 		if (*path == ':')
-			check_cd(&path, &Bcmd, &cat);
+			check_cd(&path, &Bcmd, &cat, &sw);
 		else
 		{
 			path = _strtok(path, ":");
@@ -89,7 +89,7 @@ char *_which(char *cmd)
 		}
 	}
 	free(tmpEnviron);
-	if (path != NULL)
+	if (path != NULL || sw == '1')
 		cat != (Bcmd + 1) ? free(Bcmd) : (void)1;
 	else
 	{
@@ -104,16 +104,20 @@ char *_which(char *cmd)
  *@path: current path
  *@Bcmd: slash command
  *@cat: concatenation
+ *@sw: switch for which
  *Return: none
  */
 
-void check_cd(char **path, char **Bcmd, char **cat)
+void check_cd(char **path, char **Bcmd, char **cat, char *sw)
 {
 	struct stat st;
 
 	*cat = *Bcmd + 1;
 	if (stat(*cat, &st) == 0)
+	{
 		*path = NULL;
+		*sw = '1';
+	}
 	else
 		*path = _strtok(*path, ":");
 
