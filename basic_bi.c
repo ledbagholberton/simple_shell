@@ -129,11 +129,14 @@ int built_help(char **cadena)
 	len = strlen(list_b[cont][0]);
 	while(_strncmp(cadena[cont], list_b[cont][0], len) != 0)
 		{
+			printf("cadena[cont]%s \n", cadena[cont]);
+//			printf("list_b[cont]%s \n", list_b[cont]);
 			cont++;
 			len = strlen(list_b[cont][0]);
 		}
 	home = get_home();
 	tmp[1] = str_concat(home, list_b[cont][1]);
+	printf("cadena = %s\n", tmp[1]);
 	if (execve("/bin/cat", tmp, NULL) == -1)
 		{
 			perror("");
