@@ -16,7 +16,7 @@ void valid_command(char **argv, char *name)
 		{"unsetenv", prueba},
 		{"exit", built_exit},
 		{"alias", prueba},
-		{"help", prueba},
+		{"help", built_help},
 		{"history", built_history},
 		{NULL, NULL}
 	};

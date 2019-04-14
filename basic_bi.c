@@ -86,7 +86,6 @@ void cd_parent(char **argv, char *name)
  *
  *Return: No return
  */
-
 int built_history(char **cadena)
 {
 	char *home, *tmp[] = {"/bin/cat", NULL, NULL};
@@ -94,6 +93,47 @@ int built_history(char **cadena)
 	(void)cadena;
 	home = get_home();
 	tmp[1] = str_concat(home, "/cmd_hist.txt");
+	if (execve("/bin/cat", tmp, NULL) == -1)
+		{
+			perror("");
+			free(tmp[1]);
+			return (-1);
+		}
+	free(tmp[1]);
+	return (0);
+}
+
+/**
+ *built_help - builtin help
+ *
+ *@cadena: data info
+ *
+ *Return: 0 succces -1 failure
+ */
+int built_help(char **cadena)
+{
+	char *home, *tmp[] = {"/bin/cat", NULL, NULL};
+	char *list_b[8][2] = {
+		{"cd", "/help_cd.txt"            },
+		{"env", "/help_env.txt"          },
+		{"setenv", "/help_setenv"        },
+		{"unsetenv", "/help_unsetenv.txt"},
+		{"exit", "/help_exit"            },
+		{"alias", "/help_alias"          },
+		{"help", "/help_help"            },
+		{"history","/help_history"       }
+	};
+	int cont, len;
+
+	cont = 0;
+	len = strlen(list_b[cont][0]);
+	while(_strncmp(cadena[cont], list_b[cont][0], len) != 0)
+		{
+			cont++;
+			len = strlen(list_b[cont][0]);
+		}
+	home = get_home();
+	tmp[1] = str_concat(home, list_b[cont][1]);
 	if (execve("/bin/cat", tmp, NULL) == -1)
 		{
 			perror("");
