@@ -1,0 +1,8 @@
+history: history
+    Display the history list.
+    
+    Display the history list with line numbers
+    
+    Exit Status:
+    Returns success 
+
