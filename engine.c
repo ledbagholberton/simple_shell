@@ -36,7 +36,6 @@ void valid_command(char **argv, char *name, int line)
 	ful_path = _which(*argv);
 	if (ful_path != NULL)
 	{
-		printf("%o", argv[0][0]);
 		if (execve(ful_path, argv, NULL) == -1)
 			perror(name);
 		exit(EXIT_FAILURE);
