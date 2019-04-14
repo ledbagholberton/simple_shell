@@ -4,10 +4,11 @@
  *valid_command - validates if the command is a built in or has a binary file
  *@argv: array of strings input
  *@name: name of the shell
+ *@line: number of line executed
  *Return: none
  */
 
-void valid_command(char **argv, char *name)
+void valid_command(char **argv, char *name, int line)
 {
 	bicmds builtinCmds[] = {
 		{"cd", built_cd},
@@ -41,10 +42,10 @@ void valid_command(char **argv, char *name)
 	}
 	else
 	{
+		pperror(line, name, argv);
 		free(argv[0]);
 		free(argv);
-		printf("Not Found\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 }
 

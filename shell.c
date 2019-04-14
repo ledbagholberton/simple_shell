@@ -11,7 +11,7 @@ void invoke_shell(char *name)
 {
 	ssize_t numLines = 0;
 	size_t len = 0;
-	int lenPrompt = 22, wstatus = 0, wstatus_tmp = 15;
+	int lenPrompt = 22, wstatus = 0, wstatus_tmp = 15, line = 0;
 	char *buffer = NULL, **argv;
 	pid_t child_pid;
 
@@ -19,12 +19,19 @@ void invoke_shell(char *name)
 	print_prompt(lenPrompt);
 	while ((numLines = _getline(&buffer, &len, stdin)) != -1)
 	{
+		line++;
 		wstatus_tmp = wstatus;
 		argv = split(buffer, " \n");
 		child_pid = fork();
 		child_pid == -1 ? perror(name) : (void) 0;
 		if (child_pid == 0)
-			valid_command(argv, name);
+			if (argv != NULL)
+				valid_command(argv, name, line);
+			else
+			{
+				free(buffer);
+				exit(EXIT_FAILURE);
+			}
 		else
 		{
 			wait(&wstatus);

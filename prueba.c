@@ -1,6 +1,12 @@
 #include "simple_shell.h"
 
-int prueba(char** cadena)
+/**
+ *prueba - temporal function for those built in that have not been created yet
+ *@cadena: command
+ *Return: 0
+ */
+
+int prueba(char **cadena)
 {
 	int iter;
 
