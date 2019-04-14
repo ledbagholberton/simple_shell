@@ -19,8 +19,6 @@ void invoke_shell(char *name)
 	print_prompt(lenPrompt);
 	while ((numLines = _getline(&buffer, &len, stdin)) != -1)
 	{
-		if (numLines == 0)
-			exit (0);
 		line++;
 		wstatus_tmp = wstatus;
 		argv = split(buffer, " \n");
