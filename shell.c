@@ -35,7 +35,7 @@ void invoke_shell(char *name)
 		else
 		{
 			wait(&wstatus);
-			hand_status(wstatus, argv, name, buffer, wstatus_tmp);
+			hand_status(&wstatus, argv, name, buffer, wstatus_tmp);
 		}
 		print_prompt(lenPrompt);
 		free(buffer);
@@ -53,24 +53,26 @@ void invoke_shell(char *name)
  *@wstatus_tmp: temporal wstatus
  *Return: none
  */
-void hand_status(int wstatus, char **argv, char *name,
+void hand_status(int *wstatus, char **argv, char *name,
 		 char *buffer, int wstatus_tmp)
 {
-	if (WIFEXITED(wstatus) == 1)
+	if (WIFEXITED(*wstatus) == 1)
 	{
-		wstatus = WEXITSTATUS(wstatus);
-		if (wstatus != 0 &&  wstatus != 1 && wstatus != 255)
+		*wstatus = WEXITSTATUS(*wstatus) & 0xFF;
+		printf("CURRENT STATUS %i\n OLDER STATUS %i\n", *wstatus, wstatus_tmp);
+		if (*wstatus != 0 &&  *wstatus != 1 &&
+		    *wstatus != 255 && *wstatus != 127)
 		{
-			if (wstatus == 123)
+			if (*wstatus == 123)
 				cd_parent(argv, name);
 			else
 			{
 				free(buffer);
 				free(argv);
-				if (wstatus == 124)
+				if (*wstatus == 124)
 					exit(wstatus_tmp);
 				else
-					exit(wstatus);
+					exit(*wstatus);
 			}
 		}
 	}
