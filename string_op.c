@@ -12,6 +12,11 @@ char **split(char *str, const char *delim)
 	char **argv, *buffer, *tmpCpy = strdup(str);
 	unsigned int wNum = 0, i = 0;
 
+	if (*str == '\0')
+	{
+		free(tmpCpy);
+		return (NULL);
+	}
 	/*Count the number of words to allocate memory*/
 	buffer = _strtok(tmpCpy, delim);
 	wNum += 1;

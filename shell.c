@@ -25,7 +25,13 @@ void invoke_shell(char *name)
 		child_pid = fork();
 		child_pid == -1 ? perror(name) : (void) 0;
 		if (child_pid == 0)
-			valid_command(argv, name, line);
+			if (argv != NULL)
+				valid_command(argv, name, line);
+			else
+			{
+				free(buffer);
+				exit(EXIT_FAILURE);
+			}
 		else
 		{
 			wait(&wstatus);

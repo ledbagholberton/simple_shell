@@ -27,6 +27,7 @@ void create_env(char **env);
 int _strlen(char *s);
 int _env(char *argv[]);
 void pperror(int line, char *name, char **argv);
+void CTRLC(int sign);
 
 /**
  *struct bicmds_t - structure of built in commands

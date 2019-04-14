@@ -11,6 +11,7 @@
 int main(int argc, char *argv[], char **env)
 {
 	(void)argc;
+	signal(SIGINT, CTRLC);
 	create_env(env);
 	invoke_shell(argv[0]);
 	return (0);
@@ -44,4 +45,17 @@ void init_file(char *key_buff, int leido)
 		exit(-1);
 	close(fd_hist);
 	close(fd_log);
+}
+
+/**
+ *CTRLC - control c handler function
+ *@sign: int of sign
+ *Return: none
+ */
+
+void CTRLC(int sign)
+{
+	(void) sign;
+	write(STDOUT_FILENO, "\n", 1);
+	print_prompt(22);
 }
