@@ -72,10 +72,10 @@ int _strcopy(char *str, char *ptr)
 		ptr[cont] = str[cont];
 		cont++;
 	}
-	if (str[cont] < 0)
+	if (str[cont] == '\0')
 	{
 		free(ptr);
-		exit(2);
+		exit(0);
 	}
 	return (cont);
 }
@@ -129,10 +129,10 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	int leido = 0, del_delim = 0, cont, fd_log;
 
 	size = *n;
-	(void) stream;
-	for (cont = 0; cont == 1023; cont++)
-		key_buff[cont] = '\0';
+	stream = stream;
 	leido = read(STDIN_FILENO, key_buff, 1024);
+	for (cont = leido; cont < 1023; cont++)
+		key_buff[cont] = '\0';
 	if (leido != 0)
 		init_file(key_buff, leido);
 	my_path = get_home();
@@ -143,6 +143,8 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	if (leido == -1)
 		return (-1);
 	close(fd_log);
+	for (cont = leido; cont < 1023; cont++)
+		key_buff[cont] = '\0';
 	if (*lineptr == NULL)
 	{
 		*lineptr = malloc(sizeof(char) * 1024);
