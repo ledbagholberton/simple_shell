@@ -5,75 +5,108 @@ which be described in last sections of this document.
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
+[![Downloads Stats][npm-download   s]][npm-url]
 
-Shelley's code is C language and it's construction is part of advanced projects from first cohort of Holberton School in
-Bogota, Colombia.
+Shelley's code is C language and it's construction is part of advanced projects from first cohort (I - 2019) of Holberton School in Bogota, Colombia.
 
 ![](header.png)
 
 ## How to start
 
-Clone this repository in your machine
+Clone this repository in a new directory in your machine. 
 
+git clone https://github.com/ledbagholberton/simple_shell.git
 
+Run the "make" command to compile all the c files and copy help files in $HOME directory
 
-## Running
+make
 
-Linux:
-Download
+Now the executable file <hsh> was generated and it will run to Shelley.
 
-Run the make command on your terminal. After to  compile all the files belong this project a executable file (hsh) is 
-generated.
-
-Run the ./hsh command and start to enjoy the Shelley shell.
-
+./hsh
 
 ## Usage example
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+Shelley execute kernel commands in non-interactive mode. 
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
 
-## Development setup
+Shelley execute builtin commands in non interacive mode.
 
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
 
-```sh
-make install
-npm test
-```
+Shelley execute kernel commands in interactive mode.
+
+
+Shelley execute builtin commands in interactive mode.
+
+##Functions used
+
+built_exit                      - Builtin function exit
+built_cd                        - Builtin function cd
+cd_parent                       - Builtin function cd in parent
+built_history                   - Builtin function history 
+
+========== engine.c ==========
+valid_command                   - validation function (kernel or builtin)
+_which                          - path 
+check_cd                        - support to change dir
+_strdup                         - string copy
+get_path                        - get home from environ var
+
+========== env_func.c ==========
+create_env                      - make a copy from environ var
+_env                            - Builtin function env
+
+========== error.c ==========
+pperror                         - our perror function
+
+========== _getline.c ==========
+get_home                        - return $HOME
+delete_delim                    - support to _strtok
+_strcopy                        - our strcopy
+_realloc                        - our realloc
+_getline                        - our getline
+
+========== main.c ==========
+main                            - main function
+init_file                       - initialization of variables
+CTRLC                           - Ctrl-C function
+
+========== prueba.c ==========
+prueba                          - internal test
+
+========== shell.c ==========
+invoke_shell                    - starting shell
+hand_status                     - handling status from exit builtin
+print_prompt                    - printing prompt 
+check_interactive               - support to interactive mode
+
+========== string_op.c ==========
+split                           - split of strings
+_strncmp                        - our strcmp
+str_concat                      - concatenation of strings
+_atoi                           - our atoi functions
+_strlen                         - our strlen function
+
+========== _strtok.c ==========
+is_in_delim                     - support to _strtok function
+look_first_char                 - support to -strtok function
+look_first_delim                - support to -strtok function
+look_last_delim                 - support to -strtok function
+_strtok                         - our strtok function
 
 ## Release History
 
-* 0.2.1
-    * CHANGE: Update docs (module code remains unchanged)
-* 0.2.0
-    * CHANGE: Remove `setDefaultXYZ()`
-    * ADD: Add `init()`
-* 0.1.1
-    * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!)
-* 0.1.0
-    * The first proper release
-    * CHANGE: Rename `foo()` to `bar()`
 * 0.0.1
-    * Work in progress
+    * (15-04-2019) First version
 
-## Meta
+## Authors
 
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – YourEmail@example.com
+Giovanny Perez - [@ledbag] Holberton School Colombia Student
+Haroldo Velez - [@harovlz] Holberton School Colombia Student
 
 Distributed under the XYZ license. See ``LICENSE`` for more information.
 
 [https://github.com/yourname/github-link](https://github.com/dbader/)
-
-## Contributing
-
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
