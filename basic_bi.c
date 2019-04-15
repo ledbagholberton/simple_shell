@@ -64,7 +64,7 @@ void cd_parent(char **argv, char *name)
 	{
 		if (chr[0] == '-')
 		{
-			chdir("..");
+			chdir(cp);
 		}
 		else if (chdir(home) == -1)
 		{
