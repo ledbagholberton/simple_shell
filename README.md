@@ -36,92 +36,92 @@ Shelley execute builtin commands in interactive mode.
 
 ##Functions used
 
-built_exit          - Builtin function exit
+<b>built_exit</b>          - Builtin function exit
 
-built_cd            - Builtin function cd
+<b>built_cd</b>            - Builtin function cd
 
-cd_parent           - Builtin function cd in parent
+<b>cd_parent<b>           - Builtin function cd in parent
 
-built_history       - Builtin function history 
+<b>built_history</b>       - Builtin function history 
 
 
 <b> ========== engine.c ========== </b>
 
-valid_command       - validation function (kernel or builtin)
+<b>valid_command</b>       - validation function (kernel or builtin)
 
-_which              - path 
+<b>_which</b>              - path 
 
-check_cd            - support to change dir
+<b>check_cd</b>            - support to change dir
 
-_strdup             - string copy
+<b>_strdup</b>             - string copy
 
-get_path            - get home from environ var
+<b>get_path</b>            - get home from environ var
 
 
 <b> ========== env_func.c ========== </b>
 
-create_env          - make a copy from environ var
+<b>create_env</b>          - make a copy from environ var
 
-_env                - Builtin function env
+<b>_env</b>                - Builtin function env
 
 
 <b> ========== error.c ========== </b>
 
-pperror             - our perror function
+<b>pperror</b>             - our perror function
 
 <b> ========== _getline.c ========== </b>
 
-get_home            - return $HOME
+<b>get_home</b>            - return $HOME
 
-delete_delim        - support to _strtok
+<b>delete_delim</b>        - support to _strtok
 
-_strcopy            - our strcopy
+<b>_strcopy</b>            - our strcopy
 
-_realloc            - our realloc
+<b>_realloc</b>            - our realloc
 
-_getline            - our getline
+<b>_getline</b>            - our getline
 
 <b> ========== main.c ========== </b>
 
-main                - main function
+<b>main</b>                - main function
 
-init_file           - initialization of variables
+<b>.init_file</b>           - initialization of variables
 
-CTRLC               - Ctrl-C function
+<b>CTRLC</b>               - Ctrl-C function
 
 <b> ========== shell.c ========== </b>
 
-invoke_shell        - starting shell
+<b>invoke_shell</b>        - starting shell
 
-hand_status         - handling status from exit builtin
+<b>hand_status</b>         - handling status from exit builtin
 
-print_prompt        - printing prompt 
+<b>print_prompt</b>        - printing prompt 
 
-check_interactive   - support to interactive mode
+<b>check_interactive</b>   - support to interactive mode
 
 <b> ========== string_op.c ========== </b>
 
-split               - split of strings
+<b>split</b>               - split of strings
 
-_strncmp            - our strcmp
+<b>_strncmp</b>            - our strcmp
 
-str_concat          - concatenation of strings
+<b>str_concat</b>          - concatenation of strings
 
-_atoi               - our atoi functions
+<b>_atoi</b>               - our atoi functions
 
-_strlen             - our strlen function
+<<b>_strlen</b>             - our strlen function
 
 <b> ========== _strtok.c ========== </b>
 
-is_in_delim         - support to _strtok function
+<b>is_in_delim</b>         - support to _strtok function
 
-look_first_char     - support to -strtok function
+<b>look_first_char</b>     - support to -strtok function
 
-look_first_delim    - support to -strtok function
+<b>look_first_delim</b>    - support to -strtok function
 
-look_last_delim     - support to -strtok function
+<b>look_last_delim</b>     - support to -strtok function
 
-_strtok             - our strtok function
+<b>_strtok</b>             - our strtok function
 
 ## Release History
 
