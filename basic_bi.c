@@ -52,10 +52,10 @@ int built_cd(char **cadena)
 
 void cd_parent(char **argv, char *name)
 {
-	char *home, buf[BUFSIZ], *cp, *chr;
-	static char *old_pwd;
+	char *home, buf[BUFSIZ], *cp = getcwd(buf, sizeof(buf)), *chr;
+	unsigned int i = 0;
+	static char old_pwd[BUFSIZ];
 
-	cp = getcwd(buf, sizeof(buf));
 	home = get_home();
 	if (home == NULL)
 		home = cp;
@@ -65,7 +65,6 @@ void cd_parent(char **argv, char *name)
 		chr = "";
 	if (argv[1] == NULL || chr[0] == '~' || chr[0] == '-')
 	{
-		printf("OLDPWD :%s, chr[0] %c /n", old_pwd, chr[0]);
 
 		if (chr[0] == '-')
 		{
@@ -82,8 +81,9 @@ void cd_parent(char **argv, char *name)
 		chdir(cp);
 		perror(name);
 	}
-	old_pwd = cp;
-
+	for (i = 0; cp[i] != '\0'; i++)
+		old_pwd[i] = cp[i];
+	old_pwd[i] = '\0';
 }
 
 /**

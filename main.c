@@ -27,12 +27,12 @@ char *get_oldpwd(void)
 	int  a = 0, cont;
 	char *oldpwd;
 
-	while(_strncmp(environ[a], "OLDPWD", 6) != 0)
+	while (_strncmp(environ[a], "OLDPWD", 6) != 0)
 		a++;
 	for (cont = 0; environ[a][cont] != '='; cont++)
 		;
 	oldpwd = environ[a] + cont + 1;
-	return(oldpwd);
+	return (oldpwd);
 }
 
 /**
