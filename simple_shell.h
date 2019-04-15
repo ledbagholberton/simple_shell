@@ -59,6 +59,7 @@ int built_exit(char **cadena);
 int built_cd(char **cadena);
 void cd_parent(char **argv, char *name);
 void print_prompt(int lenPrompt);
+int _strcopy(char *str, char *ptr);
 void hand_status(int *wstatus, char **argv, char *name,
 		 char *buffer, int wstatus_tmp);
 char *get_home(void);
@@ -67,4 +68,5 @@ char *get_path(void);
 char *_strdup(char *str);
 int built_help(char **cadena);
 void check_exit(char **argv);
+char *get_oldpwd(void);
 #endif
