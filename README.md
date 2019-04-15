@@ -48,15 +48,22 @@ built_history       - Builtin function history
 <b> ========== engine.c ========== </b>
 
 valid_command       - validation function (kernel or builtin)
+
 _which              - path 
+
 check_cd            - support to change dir
+
 _strdup             - string copy
+
 get_path            - get home from environ var
+
 
 <b> ========== env_func.c ========== </b>
 
 create_env          - make a copy from environ var
+
 _env                - Builtin function env
+
 
 <b> ========== error.c ========== </b>
 
@@ -65,38 +72,55 @@ pperror             - our perror function
 <b> ========== _getline.c ========== </b>
 
 get_home            - return $HOME
+
 delete_delim        - support to _strtok
+
 _strcopy            - our strcopy
+
 _realloc            - our realloc
+
 _getline            - our getline
 
 <b> ========== main.c ========== </b>
 
 main                - main function
+
 init_file           - initialization of variables
+
 CTRLC               - Ctrl-C function
 
 <b> ========== shell.c ========== </b>
 
 invoke_shell        - starting shell
+
 hand_status         - handling status from exit builtin
+
 print_prompt        - printing prompt 
+
 check_interactive   - support to interactive mode
 
 <b> ========== string_op.c ========== </b>
 
 split               - split of strings
+
 _strncmp            - our strcmp
+
 str_concat          - concatenation of strings
+
 _atoi               - our atoi functions
+
 _strlen             - our strlen function
 
 <b> ========== _strtok.c ========== </b>
 
 is_in_delim         - support to _strtok function
+
 look_first_char     - support to -strtok function
+
 look_first_delim    - support to -strtok function
+
 look_last_delim     - support to -strtok function
+
 _strtok             - our strtok function
 
 ## Release History
