@@ -22,6 +22,7 @@ void invoke_shell(char *name)
 		line++;
 		wstatus_tmp = wstatus;
 		argv = split(buffer, " \n");
+		check_exit(argv);
 		child_pid = fork();
 		child_pid == -1 ? perror(name) : (void) 0;
 		if (child_pid == 0)
@@ -103,5 +104,22 @@ void check_interactive(int *lenPrompt)
 	if (isatty(STDIN_FILENO) == 0)
 	{
 		*lenPrompt = 0;
+	}
+}
+
+/**
+ *check_exit - checks if exit command
+ *@argv: arguments
+ *Return: none
+ */
+void check_exit(char **argv)
+{
+	int num;
+
+	if (_strncmp(argv[0], "exit", 0) == 0 && argv[1] != NULL)
+	{
+		num = _atoi(argv[1]);
+		if (num == 127 || (num >= 0 || num <= 2))
+			exit(num);
 	}
 }

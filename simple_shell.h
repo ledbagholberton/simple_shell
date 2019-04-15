@@ -66,4 +66,5 @@ int built_history(char **cadena);
 char *get_path(void);
 char *_strdup(char *str);
 int built_help(char **cadena);
+void check_exit(char **argv);
 #endif
