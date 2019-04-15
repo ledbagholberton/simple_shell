@@ -10,7 +10,7 @@ char *get_home(void)
 	int a = 0, cont;
 	char *home;
 
-	while ( environ[a] != NULL && _strncmp(environ[a], "HOME", 4) != 0)
+	while (environ[a] != NULL && _strncmp(environ[a], "HOME", 4) != 0)
 	{
 		a++;
 	}
