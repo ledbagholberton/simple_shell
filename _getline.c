@@ -75,7 +75,7 @@ int _strcopy(char *str, char *ptr)
 	if (str[cont] == '\0')
 	{
 		free(ptr);
-		exit(2);
+		exit(0);
 	}
 	return (cont);
 }
