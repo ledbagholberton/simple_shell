@@ -56,6 +56,8 @@ void cd_parent(char **argv, char *name)
 
 	cp = getcwd(buf, sizeof(buf));
 	home = get_home();
+	if (home == NULL)
+		home = cp;
 	if (argv[1] != NULL)
 		chr = argv[1];
 	else
@@ -134,6 +136,8 @@ int built_help(char **cadena)
 		len = strlen(list_b[cont][0]);
 	}
 	home = get_home();
+	if (home == NULL)
+		return (-1);
 	if (cadena[1] == NULL || cont >= 8)
 		tmp[1] = str_concat(home, "/help_empty.txt");
 	else

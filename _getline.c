@@ -10,8 +10,12 @@ char *get_home(void)
 	int a = 0, cont;
 	char *home;
 
-	while (_strncmp(environ[a], "HOME", 4) != 0)
+	while ( environ[a] != NULL && _strncmp(environ[a], "HOME", 4) != 0)
+	{
 		a++;
+	}
+	if (environ[a] == NULL)
+		return (NULL);
 	for (cont = 0; environ[a][cont] != '='; cont++)
 		;
 	home = environ[a] + cont + 1;

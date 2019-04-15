@@ -165,8 +165,10 @@ char *get_path(void)
 	unsigned int i = 0;
 	char *tmpEnviron;
 
-	while (_strncmp(environ[i], "PATH", 4) != 0)
+	while (environ[i] != NULL && _strncmp(environ[i], "PATH", 4) != 0)
 		(i)++;
+	if (environ[i] == NULL)
+		return (NULL);
 	tmpEnviron = _strdup(environ[i]);
 	return (tmpEnviron);
 }
