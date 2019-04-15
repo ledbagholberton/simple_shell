@@ -1,0 +1,22 @@
+help: help [pattern ...]
+    Display information about builtin commands.
+    
+    Displays brief summaries of builtin commands.  If PATTERN is
+    specified, gives detailed help on all commands matching PATTERN,
+    otherwise the list of help topics is printed.
+    
+ 	PATTERN
+	cd - help about cd (change directory) command
+	exit - help about "exit" builtin command.
+	env - help about env builtin command.
+	history - help about history builtin command.
+	help - help about help builtin command.
+	alias - help about alias builtin command.
+	setenv - help about setenv builtin command.
+	unsetenv - help about unsetenv builtin command.
+    
+    Arguments:
+      PATTERN	Pattern specifiying a help topic
+    
+    Exit Status:
+    If PATTERN is not found return help for help builtin command
