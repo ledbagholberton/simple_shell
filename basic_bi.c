@@ -139,7 +139,6 @@ int built_help(char **cadena)
 	else
 	{
 		tmp[1] = str_concat(home, list_b[cont][1]);
-		printf("cadena: %s /n", tmp[1]);
 	}
 	if (execve("/bin/cat", tmp, NULL) == -1)
 	{

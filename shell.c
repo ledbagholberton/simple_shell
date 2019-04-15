@@ -17,7 +17,7 @@ void invoke_shell(char *name)
 
 	check_interactive(&lenPrompt);
 	print_prompt(lenPrompt);
-	while ((numLines = _getline(&buffer, &len, stdin)) != -1)
+	while ((numLines = getline(&buffer, &len, stdin)) != -1)
 	{
 		line++;
 		wstatus_tmp = wstatus;

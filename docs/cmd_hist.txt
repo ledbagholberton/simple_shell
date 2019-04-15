@@ -1,0 +1,25 @@
+ls
+cd ..
+ls
+cd ..
+ls
+cd ..
+pwd
+../env
+cd ..
+ls
+env
+env
+env
+cd .
+cd ..
+pwd
+pdw
+pwd
+cat ../env.txt
+pwd
+printenv
+pdw
+pwd
+env
+cat ../env.txt

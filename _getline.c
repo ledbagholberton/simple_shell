@@ -72,11 +72,11 @@ int _strcopy(char *str, char *ptr)
 		ptr[cont] = str[cont];
 		cont++;
 	}
-	if (str[cont] < 0)
+/*	if (str[cont] < 0)
 	{
 		free(ptr);
 		exit(2);
-	}
+		}*/
 	return (cont);
 }
 
@@ -125,7 +125,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
 	ssize_t size;
 	char key_buff[1024];
-	char *delim_2 = ";\n", *my_path;
+	char *delim_2 = "^D;\n", *my_path;
 	int leido = 0, del_delim = 0, cont, fd_log;
 
 	size = *n;
