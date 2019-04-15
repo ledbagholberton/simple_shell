@@ -36,6 +36,6 @@ void pperror(int line, char *name, char **argv)
 	tmp = iter + 1;
 	for (iter += 1; error[iter - tmp] != '\0'; iter++)
 		ful_err[iter] = error[iter - tmp];
-	write(STDOUT_FILENO, ful_err, iter);
+	write(STDERR_FILENO, ful_err, iter);
 	free(ful_err);
 }
