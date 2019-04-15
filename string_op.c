@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+\#include "simple_shell.h"
 
 /**
  *split - splits a string according to the delimiter
@@ -9,7 +9,7 @@
 
 char **split(char *str, const char *delim)
 {
-	char **argv, *buffer, *tmpCpy = strdup(str);
+	char **argv, *buffer, *tmpCpy = _strdup(str);
 	unsigned int wNum = 0, i = 0;
 
 	if (*str == '\0')
