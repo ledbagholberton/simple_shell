@@ -59,7 +59,6 @@ void hand_status(int *wstatus, char **argv, char *name,
 	if (WIFEXITED(*wstatus) == 1)
 	{
 		*wstatus = WEXITSTATUS(*wstatus) & 0xFF;
-		printf("CURRENT STATUS %i\n OLDER STATUS %i\n", *wstatus, wstatus_tmp);
 		if (*wstatus != 0 &&  *wstatus != 1 &&
 		    *wstatus != 255 && *wstatus != 127)
 		{
