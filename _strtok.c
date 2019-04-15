@@ -137,7 +137,7 @@ char *_strtok(char *str, const char *delim)
 		else
 			ptr = aux2 + 1;
 		aux2[0] = '\0';
-		if (aux2 <= aux1 || aux1 == '\0')
+		if (aux2 <= aux1 || aux1 == '\0' || aux1[0] == '#')
 			return (NULL);
 		return (aux1);
 	}
@@ -150,7 +150,7 @@ char *_strtok(char *str, const char *delim)
 	else
 		ptr = aux2 + 1;
 	aux2[0] = '\0';
-	if (aux2 <= aux1 || aux1 == '\0')
+	if (aux2 <= aux1 || aux1 == '\0' || aux1[0] == '#')
 		return (NULL);
 	return (aux1);
 }
