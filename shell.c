@@ -119,7 +119,7 @@ void check_exit(char **argv)
 	if (_strncmp(argv[0], "exit", 0) == 0 && argv[1] != NULL)
 	{
 		num = _atoi(argv[1]);
-		if (num == 127 || (num >= 0 || num <= 2))
+		if (num == 127 || (num >= 0 || num <= 1) || num == 255)
 			exit(num);
 	}
 }
