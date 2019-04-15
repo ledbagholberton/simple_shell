@@ -116,34 +116,37 @@ int built_help(char **cadena)
 	char *list_b[8][2] = {
 		{"cd", "/help_cd.txt"            },
 		{"env", "/help_env.txt"          },
-		{"setenv", "/help_setenv"        },
+		{"setenv", "/help_setenv.txt"    },
 		{"unsetenv", "/help_unsetenv.txt"},
-		{"exit", "/help_exit"            },
-		{"alias", "/help_alias"          },
-		{"help", "/help_help"            },
-		{"history","/help_history"       }
+		{"exit", "/help_exit.txt"        },
+		{"alias", "/help_alias.txt"      },
+		{"help", "/help_help.txt"        },
+		{"history", "/help_history.txt"  }
 	};
 	int cont, len;
 
 	cont = 0;
 	len = strlen(list_b[cont][0]);
-	while(cadena[1] != NULL
-	      && _strncmp(cadena[1], list_b[cont][0], len) != 0 && cont < 8)
-		{
-			cont++;
-			len = strlen(list_b[cont][0]);
-		}
+	while ((cadena[1] != NULL) &&
+	((_strncmp(cadena[1], list_b[cont][0], len)) != 0) && (cont < 8))
+	{
+		cont++;
+		len = strlen(list_b[cont][0]);
+	}
 	home = get_home();
-	if (cadena[1] = NULL || cont >=8)
+	if (cadena[1] == NULL || cont >= 8)
 		tmp[1] = str_concat(home, "/help_empty.txt");
 	else
+	{
 		tmp[1] = str_concat(home, list_b[cont][1]);
+		printf("cadena: %s /n", tmp[1]);
+	}
 	if (execve("/bin/cat", tmp, NULL) == -1)
-		{
-			perror("");
-			free(tmp[1]);
-			return (-1);
-		}
+	{
+		perror("");
+		free(tmp[1]);
+		return (-1);
+	}
 	free(tmp[1]);
 	return (0);
 }
