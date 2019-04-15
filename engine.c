@@ -61,7 +61,7 @@ char *_which(char *cmd)
 	struct stat st;
 	char *path, *cat, *Bcmd, *tmpEnviron, sw = '0';
 
-	if (*cmd != '/')
+	if (*cmd != '/' && *cmd != '.')
 		Bcmd = str_concat("/", cmd);
 	else
 		return (cmd);
