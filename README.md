@@ -11,15 +11,15 @@ Shelley's code is C language and it's construction is part of advanced projects 
 
 Clone this repository in a new directory in your machine. 
 
-<b> git clone https://github.com/ledbagholberton/simple_shell.git </b>
+'<b> git clone https://github.com/ledbagholberton/simple_shell.git </b>'
 
 Run the "make" command to compile all the c files and copy help files in $HOME directory
 
-<b> make </b>
+'<b> make </b>'
 
 Now the executable file <hsh> was generated and it will run to Shelley.
 
-<b> ./hsh </b>
+'<b> ./hsh </b>'
 
 ## Usage example
 
