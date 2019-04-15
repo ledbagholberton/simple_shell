@@ -45,7 +45,7 @@ void valid_command(char **argv, char *name, int line)
 		pperror(line, name, argv);
 		free(argv[0]);
 		free(argv);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 }
 
