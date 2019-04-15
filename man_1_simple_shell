@@ -1,0 +1,93 @@
+.TH "SHELLEY" 1 "14 April 2019" "GNU Shelley 0.1" "General Commands Manual "
+.SH NAME
+shelley - GNU Bourne-Again SHell
+.SH SYNOPSIS
+.B ./hsh
+.SH DESCRIPTION
+\fBShelley\fR  is  an  sh-compatible  command language interpreter that executes commands read from the standard input and can be used interactively.
+.SH INVOCATION
+An \fIinteractive\fR shell is one started without non-option arguments like this './hsh'. A \fInon interactive\fR shell is one started by sending commands to the standard input using pipelines like this 'echo "ls -l" | ./hsh'. 
+
+The  following  paragraphs describe how bash executes its startup files.  If any of the files exist but cannot be  read,  bash  reports  an  error.
+
+When shelley is invoked in interactive mode, three files are created:
+
+.RS
+.IP \fBenv\fP
+\- This one is where the environmental variables can be found. At the beginning this is a copy of the parent process.
+.IP \fBcmd_log\fP
+\- This is a file where the command executed in terminal is written. It is a temporal file.
+.IP \fBcmd_hist\fP
+\- This is the file where all the commands are saved.
+.RE
+
+The extension of all the files is \fI.txt\fR. On the other hand, when the shell is invoked in non interactive mode, all the three files are created again. The \fIcmd_log\fR saves the script until the shell finishes to execute the whole input. The history is appended as well as in the interactive mode. The enviromental file is recreated as a copy from the parent process. 
+.SH DEFINITIONS
+The following definitions are used throughout the rest of this document.
+.RS
+.IP \fBword\fP
+\- A  sequence of characters considered as a single unit by the shell.  Also known as a token.
+.IP \fBname\fP
+\- A word consisting only of alphanumeric characters  and  underscores,  and beginning  with  an alphabetic character or an underscore.  Also referred to as an identifier.
+.IP \fBcontrol operator\P
+\- A token that performs a control function.  It is  one  of  the  following symbols ; <newline>
+.RE
+.SH SHELL GRAMMAR
+.B \fISimple Commands:\fB
+A  simple  command  is  a  sequence of optional variable assignments followed by blank-separated words, and terminated by  a  control  operator (EOF or \n). The  first  word specifies the command to be executed, and is passed as argument zero.  The remaining words are passed as arguments to the invoked command.
+
+The return value of a simple command is its exit status, or 128+n if the command is terminated by signal n.
+
+.SH COMMAND EXECUTION
+After a command has been split into words, if it results in a simple command and an optional list of arguments, the following actions are taken.
+
+The  shell searches  for  it  in  the  list  of  shell builtins.  If a match is found, that builtin is invoked.
+
+If the command it is not a built-in and name contains no slashes, the shell attempts to  locate  it.   If there  exists  a  shell  function  by  that  name,  that  function is invoked.
+
+If the name is neither a shell function nor a builtin, and contains no  slashes, shelley  searches each element of the PATH for a directory containing an executable file by that name.
+
+If that function is not defined, the shell prints an  error message  and returns an exit status of 127.
+
+.SH EXIT STATUS
+The exit status of an executed command  is  the value returned by the waitpid system call  or  equivalent function.    Exit   statuses   fall between  0  and  255,  though,   as explained  below, the shell may use values above 125  specially.
+
+Under certain circumstances, the shell will use special  values  to  indicate specific failure modes.
+
+For the shell's purposes, a command which exits with a zero exit status has succeeded.
+If  a  command  is  not  found, the child process created to execute it returns a status of 127.
+
+Shell  builtin  commands  return  a status  of  0 (true) if successful, and non-zero (false)  if  an  error occurs  while  they  execute.
+
+Shelley itself returns the exit status of  the  last   command   executed, unless  a  syntax  error occurs, in which case it exits with a non-zero value.   See  also the exit builtin command below.
+
+.SH SIGNALS
+SIGINT is caught  and  handled  (so that the wait builtin is interruptible).
+
+.SH PROMPTING
+When executing interactively,  shelley displays  the  primary  prompt when it is ready to read a command.
+
+.SH SHELL BUILTIN COMMANDS
+[\fBcommand\fP] [\fIarguments\fP]
+
+.RS
+.IP "\fBcd\fP [\fIdir\fP]"
+\- Change the current directory to \fIdir\fP.  if dir is not  supplied, the value of the HOME shell   variable   is    the default.    Any   additional arguments following dir  are ignored.
+.IP "\fBexit\fP [\fIstatus\fP]"
+\- Cause the shell to exit with a  status  of  \fIstatus\fP.   If status is omitted, the exit status  is that  of  the  last  command executed.  A trap on EXIT is executed  before  the  shell terminates.
+
+.IP "\fBhelp\fP [\fIcommand\fP]"
+\- Display  helpful information about builtin commands.
+
+.IP \fBhistory\fP
+\- Display the command  history  list  with line  numbers.
+.IP "\fBenv\fP"
+\- Displays all the environmental variables.
+.RE
+
+.SH SEE ALSO
+\fIREADME.md\fP - https://github.com/ledbagholberton/simple_shell
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Giovanny Perez & Haroldo Velez.

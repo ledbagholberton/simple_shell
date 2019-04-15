@@ -1,0 +1,4 @@
+#!/bin/bash
+echo -e "# This file lists all individuals having contributed content to the repository.
+# For how it is generated, see \`.create_authors\`.\n" > AUTHORS
+git log --format='%aN <%aE>' | sort -u -t "<" -k 2 | grep -v "github.com" >> AUTHORS
