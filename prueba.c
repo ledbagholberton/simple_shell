@@ -12,7 +12,7 @@ int prueba(char **cadena)
 
 	for (iter = 0; cadena[iter] != NULL; iter++)
 	{
-		printf("Cadena [%d] es %s \n", iter, cadena[iter]);
+
 	}
 	return (0);
 }
