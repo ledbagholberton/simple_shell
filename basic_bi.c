@@ -11,20 +11,26 @@ int built_exit(char **cadena)
 {
 	int status;
 
-	if (cadena[1] == NULL)
+
+	if (cadena[1] != NULL)
+	{
+		status = _atoi(cadena[1]);
+		if (status > 255 || status < 0)
+		{
+			exit(0);
+			perror(cadena[1]);
+		}
+		free(cadena[0]);
+		free(cadena);
+		exit(status);
+	}
+		if (cadena[1] == NULL)
 	{
 		free(cadena[0]);
 		free(cadena);
 		exit(124);
 	}
-	else
-	{
-		status = _atoi(cadena[1]);
-		free(cadena[0]);
-		free(cadena);
-		exit(status);
-	}
-	return (0);
+		return (0);
 }
 
 /**

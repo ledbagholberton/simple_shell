@@ -22,7 +22,8 @@ void invoke_shell(char *name)
 		line++;
 		wstatus_tmp = wstatus;
 		argv = split(buffer, " \n");
-		check_exit(argv);
+		if (check_exit(line, name, argv) == -1)
+		{
 		child_pid = fork();
 		child_pid == -1 ? perror(name) : (void) 0;
 		if (child_pid == 0)
@@ -42,6 +43,7 @@ void invoke_shell(char *name)
 		free(buffer);
 		free(argv);
 		buffer = NULL;
+		}
 	}
 }
 
@@ -114,14 +116,36 @@ void check_interactive(int *lenPrompt)
  *@argv: arguments
  *Return: none
  */
-void check_exit(char **argv)
+int check_exit(int line, char *name, char **argv)
 {
 	int num;
 
 	if (_strncmp(argv[0], "exit", 0) == 0 && argv[1] != NULL)
 	{
 		num = _atoi(argv[1]);
-		if (num == 127 || (num >= 0 || num <= 1) || num == 255)
+		if (num == 500)
+		{
+			printf("error de numerio %s %d %s %s /n", name, line, argv[0], argv[1]);
+			/* pperror(line, name, argv); */
+			return (-1);
+		}
+		else if(num == 127 || (num >= 0 || num <= 1) || num == 255)
+		{
+			free(argv[0]);
+			free(argv);
 			exit(num);
+		}
 	}
+	else
+	{
+		if (argv[1] == NULL)
+		{
+		free(argv[0]);
+		free(argv);
+		exit(124);
+		}
+		return (-1);
+	}
+
+return (-1);
 }

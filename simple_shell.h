@@ -67,6 +67,6 @@ int built_history(char **cadena);
 char *get_path(void);
 char *_strdup(char *str);
 int built_help(char **cadena);
-void check_exit(char **argv);
+int check_exit(int line, char *name, char **argv);
 char *get_oldpwd(void);
 #endif
