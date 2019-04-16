@@ -118,6 +118,8 @@ void check_exit(char **argv)
 {
 	int num;
 
+	if (argv == NULL)
+		return;
 	if (_strncmp(argv[0], "exit", 0) == 0 && argv[1] != NULL)
 	{
 		num = _atoi(argv[1]);
