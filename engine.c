@@ -59,16 +59,16 @@ char *_which(char *cmd)
 {
 
 	struct stat st;
-	char *path, *cat, *Bcmd, *tmpEnviron, sw = '0';
+	char *path, *cat, *Bcmd = str_concat("/", cmd), *tmpEnviron, sw = '0';
 
-	if (*cmd != '/' && *cmd != '.')
-		Bcmd = str_concat("/", cmd);
-	else
+	if (*cmd == '/' || *cmd == '.')
 		return (cmd);
 	tmpEnviron = get_path();
 	path = _strtok(tmpEnviron, "=");
 	path = _strtok(NULL, "");
-	if (*path == ':')
+	if (path == NULL || tmpEnviron == NULL)
+		return (NULL);
+	else if (*path == ':')
 		check_cd(&path, &Bcmd, &cat, &sw);
 	else
 		path = _strtok(path, ":");
