@@ -75,6 +75,8 @@ void hand_status(int *wstatus, char **argv, char *name,
 					exit(*wstatus);
 			}
 		}
+		if (*wstatus == 127 && isatty(STDIN_FILENO) == 0)
+			exit(127);
 	}
 }
 
