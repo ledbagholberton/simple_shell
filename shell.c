@@ -21,7 +21,7 @@ void invoke_shell(char *name)
 	{
 		line++;
 		wstatus_tmp = wstatus;
-		argv = split(buffer, " \n");
+		argv = split(buffer, " \t\n");
 		check_exit(argv);
 		child_pid = fork();
 		child_pid == -1 ? perror(name) : (void) 0;
