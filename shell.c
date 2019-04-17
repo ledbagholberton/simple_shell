@@ -88,9 +88,19 @@ void hand_status(int *wstatus, char **argv, char *name,
 
 void print_prompt(int lenPrompt)
 {
+	char *cp, *my_prompt, *buf = NULL;
+	char *prompt = "\033[1m\x1B[34mShelley\x1B[0m:";
+	int len;
+
 	if (lenPrompt != 0)
 	{
-		write(STDOUT_FILENO, "", 0);
+		cp = getcwd(buf, 0);
+		my_prompt = str_concat(prompt, cp);
+		len = _strlen(my_prompt);
+		write(STDOUT_FILENO, my_prompt, len);
+		write(STDOUT_FILENO, "$ ", 2);
+		free(cp);
+		free(my_prompt);
 	}
 }
 
