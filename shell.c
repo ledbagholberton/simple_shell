@@ -1,3 +1,4 @@
+
 #include "simple_shell.h"
 #include <errno.h>
 
@@ -24,26 +25,26 @@ void invoke_shell(char *name)
 		argv = split(buffer, " \n");
 		if (check_exit(line, name, argv) == -1)
 		{
-		child_pid = fork();
-		child_pid == -1 ? perror(name) : (void) 0;
-		if (child_pid == 0)
-			if (argv != NULL)
-				valid_command(argv, name, line);
+			child_pid = fork();
+			child_pid == -1 ? perror(name) : (void) 0;
+			if (child_pid == 0)
+				if (argv != NULL)
+					valid_command(argv, name, line);
+				else
+				{
+					free(buffer);
+					exit(EXIT_FAILURE);
+				}
 			else
 			{
-				free(buffer);
-				exit(EXIT_FAILURE);
-			}
-		else
-		{
 			wait(&wstatus);
 			hand_status(&wstatus, argv, name, buffer, wstatus_tmp);
+			}
 		}
-		print_prompt(lenPrompt);
-		free(buffer);
-		free(argv);
-		buffer = NULL;
-		}
+			print_prompt(lenPrompt);
+			free(buffer);
+			free(argv);
+			buffer = NULL;
 	}
 }
 
@@ -114,6 +115,8 @@ void check_interactive(int *lenPrompt)
 /**
  *check_exit - checks if exit command
  *@argv: arguments
+ *@line: line
+ *@name: name
  *Return: none
  */
 int check_exit(int line, char *name, char **argv)
@@ -125,11 +128,11 @@ int check_exit(int line, char *name, char **argv)
 		num = _atoi(argv[1]);
 		if (num == 500)
 		{
-			printf("error de numerio %s %d %s %s /n", name, line, argv[0], argv[1]);
-			/* pperror(line, name, argv); */
+			printf("%s: %d: %s: Illegal number: %s \n", name, line, argv[0], argv[1]);
+			fflush(STDIN_FILENO);
 			return (-1);
 		}
-		else if(num == 127 || (num >= 0 || num <= 1) || num == 255)
+		else
 		{
 			free(argv[0]);
 			free(argv);
@@ -138,14 +141,14 @@ int check_exit(int line, char *name, char **argv)
 	}
 	else
 	{
+		if (_strncmp(argv[0], "exit", 0) != 0)
+			return (-1);
 		if (argv[1] == NULL)
 		{
 		free(argv[0]);
 		free(argv);
 		exit(124);
 		}
-		return (-1);
 	}
-
 return (-1);
 }
