@@ -11,7 +11,7 @@ void invoke_shell(char *name)
 {
 	ssize_t numLines = 0;
 	size_t len = 0;
-	int lenPrompt = 22, wstatus = 0, wstatus_tmp = 15, line = 0;
+	int lenPrompt = 0, wstatus = 0, wstatus_tmp = 15, line = 0;
 	char *buffer = NULL, **argv;
 	pid_t child_pid;
 
