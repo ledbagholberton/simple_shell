@@ -32,15 +32,15 @@ char *get_home(void)
 int delete_delim(char *delim_2)
 {
 	int fd_log, leido, escrito, cont;
-	char tmp_buffer[5000], *first_delim, *my_path;
+	char tmp_buffer[BSIZE], *first_delim, *my_path;
 	long int diferencia;
 
-	for (cont = 0; cont == 4999; cont++)
+	for (cont = 0; cont == BSIZE - 1; cont++)
 		tmp_buffer[cont] = 4;
 	my_path = get_home();
 	my_path = str_concat(my_path, "/cmd_log.txt");
 	fd_log = open(my_path, O_RDONLY);
-	leido = read(fd_log, tmp_buffer, 5000);
+	leido = read(fd_log, tmp_buffer, BSIZE);
 	close(fd_log);
 	if (leido == -1 || leido == 0)
 		return (-1);
@@ -128,14 +128,14 @@ void *_realloc(void *ptr, unsigned int new_size)
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
 	ssize_t size;
-	char key_buff[5000];
+	char key_buff[BSIZE];
 	char *delim_2 = ";\n", *my_path;
 	int leido = 0, del_delim = 0, cont, fd_log;
 
 	size = *n;
 	stream = stream;
-	leido = read(STDIN_FILENO, key_buff, 5000);
-	for (cont = leido; cont < 4999; cont++)
+	leido = read(STDIN_FILENO, key_buff, BSIZE);
+	for (cont = leido; cont < BSIZE - 1; cont++)
 		key_buff[cont] = '\0';
 	if (leido != 0)
 		init_file(key_buff, leido);
@@ -143,15 +143,15 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	my_path = str_concat(my_path, "/cmd_log.txt");
 	fd_log = open(my_path, O_RDONLY);
 	free(my_path);
-	leido = read(fd_log, key_buff, 5000);
+	leido = read(fd_log, key_buff, BSIZE);
 	if (leido == -1)
 		return (-1);
 	close(fd_log);
-	for (cont = leido; cont < 4999; cont++)
+	for (cont = leido; cont < BSIZE - 1; cont++)
 		key_buff[cont] = '\0';
 	if (*lineptr == NULL)
 	{
-		*lineptr = malloc(sizeof(char) * 5000);
+		*lineptr = malloc(sizeof(char) * BSIZE);
 		if (*lineptr == NULL)
 			return (-1);
 	}

@@ -70,3 +70,6 @@ int built_help(char **cadena);
 void check_exit(char **argv);
 char *get_oldpwd(void);
 #endif
+#ifndef BSIZE
+#define BSIZE 10000
+#endif
