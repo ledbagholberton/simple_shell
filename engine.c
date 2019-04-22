@@ -36,7 +36,7 @@ void valid_command(char **argv, char *name, int line)
 	ful_path = _which(*argv);
 	if (ful_path != NULL)
 	{
-		if (execve(ful_path, argv, NULL) == -1)
+		if (execve(ful_path, argv, environ) == -1)
 			perror(name);
 		exit(EXIT_FAILURE);
 	}
@@ -59,16 +59,16 @@ char *_which(char *cmd)
 {
 
 	struct stat st;
-	char *path, *cat, *Bcmd, *tmpEnviron, sw = '0';
+	char *path, *cat, *Bcmd = str_concat("/", cmd), *tmpEnviron, sw = '0';
 
-	if (*cmd != '/' && *cmd != '.')
-		Bcmd = str_concat("/", cmd);
-	else
+	if (*cmd == '/' || *cmd == '.')
 		return (cmd);
 	tmpEnviron = get_path();
 	path = _strtok(tmpEnviron, "=");
 	path = _strtok(NULL, "");
-	if (*path == ':')
+	if (path == NULL || tmpEnviron == NULL)
+		return (NULL);
+	else if (*path == ':')
 		check_cd(&path, &Bcmd, &cat, &sw);
 	else
 		path = _strtok(path, ":");

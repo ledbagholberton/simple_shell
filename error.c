@@ -19,9 +19,9 @@ void pperror(int line, char *name, char **argv)
 		ful_err[iter] = '\0';
 	for (iter = 0; name[iter] != '\0'; iter++)
 		ful_err[iter] = name[iter];
-	ful_err[iter + 1] = ':';
-	ful_err[iter + 2] = ' ';
-	for (iter += 3; line != 0; iter++)
+	ful_err[iter] = ':';
+	ful_err[iter + 1] = ' ';
+	for (iter += 2; line != 0; iter++)
 	{
 		for (tmp = line / 10; tmp != 0; tmp /= 10)
 			tmpIt *= 10;
@@ -34,9 +34,10 @@ void pperror(int line, char *name, char **argv)
 	tmp = iter + 2;
 	for (iter += 2; argv[0][iter - tmp] != '\0'; iter++)
 		ful_err[iter] = argv[0][iter - tmp];
-	tmp = iter + 1;
-	for (iter += 1; error[iter - tmp] != '\0'; iter++)
+	tmp = iter;
+	for (; error[iter - tmp] != '\0'; iter++)
 		ful_err[iter] = error[iter - tmp];
+	ful_err[iter] = '\0';
 	write(STDERR_FILENO, ful_err, iter);
 	free(ful_err);
 }

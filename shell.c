@@ -12,7 +12,7 @@ void invoke_shell(char *name)
 {
 	ssize_t numLines = 0;
 	size_t len = 0;
-	int lenPrompt = 22, wstatus = 0, wstatus_tmp = 15, line = 0;
+	int lenPrompt = 0, wstatus = 0, wstatus_tmp = 15, line = 0;
 	char *buffer = NULL, **argv;
 	pid_t child_pid;
 
@@ -91,9 +91,19 @@ void hand_status(int *wstatus, char **argv, char *name,
 
 void print_prompt(int lenPrompt)
 {
+	char *cp, *my_prompt, *buf = NULL;
+	char *prompt = "\033[1m\x1B[34mShelley\x1B[0m:";
+	int len;
+
 	if (lenPrompt != 0)
 	{
-		write(STDOUT_FILENO, "", 0);
+		cp = getcwd(buf, 0);
+		my_prompt = str_concat(prompt, cp);
+		len = _strlen(my_prompt);
+		write(STDOUT_FILENO, my_prompt, len);
+		write(STDOUT_FILENO, "$ ", 2);
+		free(cp);
+		free(my_prompt);
 	}
 }
 
@@ -123,6 +133,8 @@ int check_exit(int line, char *name, char **argv)
 {
 	int num;
 
+	if (argv == NULL)
+		return;
 	if (_strncmp(argv[0], "exit", 0) == 0 && argv[1] != NULL)
 	{
 		num = _atoi(argv[1]);

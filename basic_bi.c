@@ -74,6 +74,8 @@ void cd_parent(char **argv, char *name)
 
 		if (chr[0] == '-')
 		{
+			write(STDOUT_FILENO, old_pwd, _strlen(old_pwd));
+			write(STDOUT_FILENO, "\n", 1);
 			chdir(old_pwd);
 		}
 		else if (chdir(home) == -1)
